@@ -4,4 +4,8 @@
     <string name="cuarto_2">2C</string>
     <string name="cuarto_3">3C</string>
     <string name="cuarto_4">4C</string>
+    <string name="racha_ultimos_partidos">%1$d - %2$d</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="jornadas">Jornadas</string>
 </resources>

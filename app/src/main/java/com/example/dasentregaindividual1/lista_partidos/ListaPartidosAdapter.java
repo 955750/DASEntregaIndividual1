@@ -8,44 +8,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dasentregaindividual1.R;
+import com.example.dasentregaindividual1.lista_partidos.data_classes.EquipoPartido;
+import com.example.dasentregaindividual1.lista_partidos.data_classes.Partido;
 
 public class ListaPartidosAdapter extends RecyclerView.Adapter<ListaPartidosViewHolder> {
 
-    private int[] escudosEquiposLocales;
-    private String[] nombresEquiposLocales;
-    private String[] ultimosPartidosEquiposLocales;
-    private int[] puntosEquiposLocales;
+    private Partido[] partidosJornada;
 
-    private int[] escudosEquiposVisitantes;
-    private String[] nombresEquiposVisitantes;
-    private String[] ultimosPartidosEquiposVisitantes;
-    private int[] puntosEquiposVisitantes;
-
-    public ListaPartidosAdapter(
-        int[] pEscudosEquiposLocales,
-        String[] pNombresEquiposLocales,
-        String[] pUltimosPartidosEquiposLocales,
-        int[] pPuntosEquiposLocales,
-        int[] pEscudosEquiposVisitantes,
-        String[] pNombresEquiposVisitantes,
-        String[] pUltimosPartidosEquiposVisitantes,
-        int[] pPuntosEquiposVisitantes
-    ) {
-        escudosEquiposLocales = pEscudosEquiposLocales;
-        nombresEquiposLocales = pNombresEquiposLocales;
-        ultimosPartidosEquiposLocales = pUltimosPartidosEquiposLocales;
-        puntosEquiposLocales = pPuntosEquiposLocales;
-
-        escudosEquiposVisitantes = pEscudosEquiposVisitantes;
-        nombresEquiposVisitantes = pNombresEquiposVisitantes;
-        ultimosPartidosEquiposVisitantes = pUltimosPartidosEquiposVisitantes;
-        puntosEquiposVisitantes = pPuntosEquiposVisitantes;
+    public ListaPartidosAdapter(Partido[] pPartidosJornada) {
+        partidosJornada = pPartidosJornada;
     }
 
     @NonNull
     @Override
     public ListaPartidosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View listaJornadasItem= LayoutInflater
+        View listaJornadasItem = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.lista_partidos_item, parent, false);
         ListaPartidosViewHolder listaPartidosViewHolder = new ListaPartidosViewHolder(
@@ -55,19 +32,21 @@ public class ListaPartidosAdapter extends RecyclerView.Adapter<ListaPartidosView
 
     @Override
     public void onBindViewHolder(@NonNull ListaPartidosViewHolder holder, int position) {
-        holder.escudoEquipoLocalIV.setImageResource(escudosEquiposLocales[position]);
-        holder.nombreEquipoLocalTV.setText(nombresEquiposLocales[position]);
-        holder.ultimosPartidosEquipoLocalTV.setText(ultimosPartidosEquiposLocales[position]);
-        holder.puntosEquipoLocalTV.setText(String.valueOf(puntosEquiposLocales[position]));
+        EquipoPartido equipoLocal = partidosJornada[position].getEquipoLocal();
+        holder.escudoEquipoLocalIV.setImageResource(equipoLocal.getEscudo());
+        holder.nombreEquipoLocalTV.setText(equipoLocal.getNombre());
+        holder.ultimosPartidosEquipoLocalTV.setText(equipoLocal.getRachaUltimosPartidos());
+        holder.puntosEquipoLocalTV.setText(String.valueOf(equipoLocal.getPuntos()));
 
-        holder.escudoEquipoVisitanteIV.setImageResource(escudosEquiposVisitantes[position]);
-        holder.nombreEquipoVisitanteTV.setText(nombresEquiposVisitantes[position]);
-        holder.ultimosPartidosEquipoVisitanteTV.setText(ultimosPartidosEquiposVisitantes[position]);
-        holder.puntosEquipoVisitanteTV.setText(String.valueOf(puntosEquiposVisitantes[position]));
+        EquipoPartido equipoVisitante = partidosJornada[position].getEquipoVisitante();
+        holder.escudoEquipoVisitanteIV.setImageResource(equipoVisitante.getEscudo());
+        holder.nombreEquipoVisitanteTV.setText(equipoVisitante.getNombre());
+        holder.ultimosPartidosEquipoVisitanteTV.setText(equipoVisitante.getRachaUltimosPartidos());
+        holder.puntosEquipoVisitanteTV.setText(String.valueOf(equipoVisitante.getPuntos()));
     }
 
     @Override
     public int getItemCount() {
-        return escudosEquiposLocales.length;
+        return partidosJornada.length;
     }
 }

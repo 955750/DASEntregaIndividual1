@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/menuPrincipalFragment">
+
+    <fragment
+        android:id="@+id/listaPartidosFragment"
+        android:name="com.example.dasentregaindividual1.lista_partidos.ListaPartidosFragment"
+        android:label="fragment_lista_partidos"
+        tools:layout="@layout/fragment_lista_partidos" />
+    <fragment
+        android:id="@+id/menuPrincipalFragment"
+        android:name="com.example.dasentregaindividual1.menu_principal.MenuPrincipalFragment"
+        android:label="fragment_menu_principal"
+        tools:layout="@layout/fragment_menu_principal" >
+        <action
+            android:id="@+id/action_menuPrincipalFragment_to_listaPartidosFragment"
+            app:destination="@id/listaPartidosFragment" />
+    </fragment>
+</navigation>
