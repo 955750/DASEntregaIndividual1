@@ -14,10 +14,11 @@ public class ListaJornadasViewHolder extends RecyclerView.ViewHolder {
     public ImageView escudoEquipoLocalIV;
     public TextView nombreEquipoLocalTV;
     public TextView ultimosPartidosEquipoLocalTV;
-
+    public TextView puntosEquipoLocalTV;
     public ImageView escudoEquipoVisitanteIV;
     public TextView nombreEquipoVisitanteTV;
     public TextView ultimosPartidosEquipoVisitanteTV;
+    public TextView puntosEquipoVisitanteTV;
 
     public ListaJornadasViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -25,10 +26,12 @@ public class ListaJornadasViewHolder extends RecyclerView.ViewHolder {
         escudoEquipoLocalIV = itemView.findViewById(R.id.escudo_equipo_local);
         nombreEquipoLocalTV = itemView.findViewById(R.id.nombre_equipo_local);
         ultimosPartidosEquipoLocalTV = itemView.findViewById(R.id.ultimos_partidos_equipo_local);
+        puntosEquipoLocalTV = itemView.findViewById(R.id.puntos_equipo_local);
 
         escudoEquipoVisitanteIV = itemView.findViewById(R.id.escudo_equipo_visitante);
         nombreEquipoVisitanteTV = itemView.findViewById(R.id.nombre_equipo_visitante);
         ultimosPartidosEquipoVisitanteTV = itemView
                 .findViewById(R.id.ultimos_partidos_equipo_visitante);
+        puntosEquipoVisitanteTV = itemView.findViewById(R.id.puntos_equipo_visitante);
     }
 }

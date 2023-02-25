@@ -17,18 +17,20 @@ public class ListaJornadasActivity extends AppCompatActivity {
     private int[] escudosEquiposLocales;
     private String[] nombresEquiposLocales;
     private String[] ultimosPartidosEquiposLocales;
+    private int[] puntosEquiposLocales;
 
     // De momento los 9 últimos equipos
     private int[] escudosEquiposVisitantes;
     private String[] nombresEquiposVisitantes;
     private String[] ultimosPartidosEquiposVisitantes;
+    private int[] puntosEquiposVisitantes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_jornadas);
         
-        jornadasRecyclerView = (RecyclerView) findViewById(R.id.jornadas_recycler_view);
+        jornadasRecyclerView = findViewById(R.id.jornadas_recycler_view);
 
         escudosEquiposLocales = new int[] {
                 R.drawable.escudo_alba_berlin,
@@ -62,6 +64,17 @@ public class ListaJornadasActivity extends AppCompatActivity {
                 "10 - 0",
                 "10 - 0",
                 "10 - 0"
+        };
+        puntosEquiposLocales = new int[] {
+                33,
+                33,
+                33,
+                33,
+                33,
+                33,
+                33,
+                33,
+                33
         };
 
         escudosEquiposVisitantes = new int[] {
@@ -97,14 +110,27 @@ public class ListaJornadasActivity extends AppCompatActivity {
                 "10 - 0",
                 "10 - 0"
         };
+        puntosEquiposVisitantes = new int[] {
+                33,
+                33,
+                33,
+                33,
+                33,
+                33,
+                33,
+                33,
+                33
+        };
 
         listaJornadasAdapter = new ListaJornadasAdapter(
                 escudosEquiposLocales,
                 nombresEquiposLocales,
                 ultimosPartidosEquiposLocales,
+                puntosEquiposLocales,
                 escudosEquiposVisitantes,
                 nombresEquiposVisitantes,
-                ultimosPartidosEquiposVisitantes
+                ultimosPartidosEquiposVisitantes,
+                puntosEquiposVisitantes
         );
         jornadasRecyclerView.setAdapter(listaJornadasAdapter);
     }
