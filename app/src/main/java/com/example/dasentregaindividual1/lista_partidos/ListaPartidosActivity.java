@@ -1,17 +1,16 @@
-package com.example.dasentregaindividual1.jornada;
+package com.example.dasentregaindividual1.lista_partidos;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
 import com.example.dasentregaindividual1.R;
 
-public class ListaJornadasActivity extends AppCompatActivity {
+public class ListaPartidosActivity extends AppCompatActivity {
     
     private RecyclerView jornadasRecyclerView;
-    private ListaJornadasAdapter listaJornadasAdapter;
+    private ListaPartidosAdapter listaPartidosAdapter;
 
     // De momento los 9 primeros equipos
     private int[] escudosEquiposLocales;
@@ -122,7 +121,7 @@ public class ListaJornadasActivity extends AppCompatActivity {
                 33
         };
 
-        listaJornadasAdapter = new ListaJornadasAdapter(
+        listaPartidosAdapter = new ListaPartidosAdapter(
                 escudosEquiposLocales,
                 nombresEquiposLocales,
                 ultimosPartidosEquiposLocales,
@@ -132,6 +131,6 @@ public class ListaJornadasActivity extends AppCompatActivity {
                 ultimosPartidosEquiposVisitantes,
                 puntosEquiposVisitantes
         );
-        jornadasRecyclerView.setAdapter(listaJornadasAdapter);
+        jornadasRecyclerView.setAdapter(listaPartidosAdapter);
     }
 }

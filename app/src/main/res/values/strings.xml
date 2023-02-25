@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DASEntregaIndividual1</string>
+    <string name="cuarto_1">1C</string>
+    <string name="cuarto_2">2C</string>
+    <string name="cuarto_3">3C</string>
+    <string name="cuarto_4">4C</string>
 </resources>

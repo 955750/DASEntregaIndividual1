@@ -1,4 +1,4 @@
-package com.example.dasentregaindividual1.jornada;
+package com.example.dasentregaindividual1.lista_partidos;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dasentregaindividual1.R;
 
-public class ListaJornadasAdapter extends RecyclerView.Adapter<ListaJornadasViewHolder> {
+public class ListaPartidosAdapter extends RecyclerView.Adapter<ListaPartidosViewHolder> {
 
     private int[] escudosEquiposLocales;
     private String[] nombresEquiposLocales;
@@ -21,7 +21,7 @@ public class ListaJornadasAdapter extends RecyclerView.Adapter<ListaJornadasView
     private String[] ultimosPartidosEquiposVisitantes;
     private int[] puntosEquiposVisitantes;
 
-    public ListaJornadasAdapter(
+    public ListaPartidosAdapter(
         int[] pEscudosEquiposLocales,
         String[] pNombresEquiposLocales,
         String[] pUltimosPartidosEquiposLocales,
@@ -44,17 +44,17 @@ public class ListaJornadasAdapter extends RecyclerView.Adapter<ListaJornadasView
 
     @NonNull
     @Override
-    public ListaJornadasViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListaPartidosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View listaJornadasItem= LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.lista_jornadas_item, parent, false);
-        ListaJornadasViewHolder listaJornadasViewHolder = new ListaJornadasViewHolder(
+                .inflate(R.layout.lista_partidos_item, parent, false);
+        ListaPartidosViewHolder listaPartidosViewHolder = new ListaPartidosViewHolder(
                 listaJornadasItem);
-        return listaJornadasViewHolder;
+        return listaPartidosViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListaJornadasViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ListaPartidosViewHolder holder, int position) {
         holder.escudoEquipoLocalIV.setImageResource(escudosEquiposLocales[position]);
         holder.nombreEquipoLocalTV.setText(nombresEquiposLocales[position]);
         holder.ultimosPartidosEquipoLocalTV.setText(ultimosPartidosEquiposLocales[position]);

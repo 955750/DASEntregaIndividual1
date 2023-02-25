@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.dasentregaindividual1.jornada.ListaJornadasActivity;
+import com.example.dasentregaindividual1.lista_partidos.ListaPartidosActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, ListaJornadasActivity.class);
+                Intent i = new Intent(MainActivity.this, ListaPartidosActivity.class);
                 startActivity(i);
             }
         });

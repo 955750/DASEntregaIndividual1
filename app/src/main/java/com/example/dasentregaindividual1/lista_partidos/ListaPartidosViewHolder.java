@@ -1,4 +1,4 @@
-package com.example.dasentregaindividual1.jornada;
+package com.example.dasentregaindividual1.lista_partidos;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dasentregaindividual1.R;
 
-public class ListaJornadasViewHolder extends RecyclerView.ViewHolder {
+public class ListaPartidosViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView escudoEquipoLocalIV;
     public TextView nombreEquipoLocalTV;
@@ -20,7 +20,7 @@ public class ListaJornadasViewHolder extends RecyclerView.ViewHolder {
     public TextView ultimosPartidosEquipoVisitanteTV;
     public TextView puntosEquipoVisitanteTV;
 
-    public ListaJornadasViewHolder(@NonNull View itemView) {
+    public ListaPartidosViewHolder(@NonNull View itemView) {
         super(itemView);
 
         escudoEquipoLocalIV = itemView.findViewById(R.id.escudo_equipo_local);
