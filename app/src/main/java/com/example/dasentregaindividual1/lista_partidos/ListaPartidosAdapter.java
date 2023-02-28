@@ -32,17 +32,23 @@ public class ListaPartidosAdapter extends RecyclerView.Adapter<ListaPartidosView
 
     @Override
     public void onBindViewHolder(@NonNull ListaPartidosViewHolder holder, int position) {
+        // Cargar datos del equipo local
         EquipoPartido equipoLocal = partidosJornada[position].getEquipoLocal();
         holder.escudoEquipoLocalIV.setImageResource(equipoLocal.getEscudo());
         holder.nombreEquipoLocalTV.setText(equipoLocal.getNombre());
         holder.ultimosPartidosEquipoLocalTV.setText(equipoLocal.getRachaUltimosPartidos());
         holder.puntosEquipoLocalTV.setText(String.valueOf(equipoLocal.getPuntos()));
 
+        // Cargar datos del equipo visitante
         EquipoPartido equipoVisitante = partidosJornada[position].getEquipoVisitante();
         holder.escudoEquipoVisitanteIV.setImageResource(equipoVisitante.getEscudo());
         holder.nombreEquipoVisitanteTV.setText(equipoVisitante.getNombre());
         holder.ultimosPartidosEquipoVisitanteTV.setText(equipoVisitante.getRachaUltimosPartidos());
         holder.puntosEquipoVisitanteTV.setText(String.valueOf(equipoVisitante.getPuntos()));
+
+        // Cargar el resto de datos del partido (fecha y hora)
+        holder.fechaPartidoTV.setText(partidosJornada[position].getFecha());
+        holder.horaPartidoTV.setText(partidosJornada[position].getHora());
     }
 
     @Override

@@ -74,40 +74,82 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/marcador"
+                android:id="@+id/marcador_horario"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="30"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp">
 
-                <TextView
-                    android:id="@+id/puntos_equipo_local"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    tools:text="33"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:background="@color/purple_200"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/marcador_numeros"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/puntos_equipo_visitante"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-                <TextView
-                    android:id="@+id/puntos_equipo_visitante"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    tools:text="105"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:background="@color/teal_700"
-                    app:layout_constraintStart_toEndOf="@id/puntos_equipo_local"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/puntos_equipo_local"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        tools:text="33"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@color/purple_200"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/puntos_equipo_visitante"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        tools:text="105"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@color/teal_700"
+                        app:layout_constraintStart_toEndOf="@id/puntos_equipo_local"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fecha_hora_partido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/marcador_numeros">
+
+                    <TextView
+                        android:id="@+id/fecha_partido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="03/03/2023"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/hora_partido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        tools:text="20:00"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/fecha_partido"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

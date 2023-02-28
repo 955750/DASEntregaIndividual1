@@ -19,6 +19,8 @@ public class ListaPartidosViewHolder extends RecyclerView.ViewHolder {
     public TextView nombreEquipoVisitanteTV;
     public TextView ultimosPartidosEquipoVisitanteTV;
     public TextView puntosEquipoVisitanteTV;
+    public TextView fechaPartidoTV;
+    public TextView horaPartidoTV;
 
     public ListaPartidosViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -33,5 +35,8 @@ public class ListaPartidosViewHolder extends RecyclerView.ViewHolder {
         ultimosPartidosEquipoVisitanteTV = itemView
                 .findViewById(R.id.ultimos_partidos_equipo_visitante);
         puntosEquipoVisitanteTV = itemView.findViewById(R.id.puntos_equipo_visitante);
+
+        fechaPartidoTV = itemView.findViewById(R.id.fecha_partido);
+        horaPartidoTV = itemView.findViewById(R.id.hora_partido);
     }
 }

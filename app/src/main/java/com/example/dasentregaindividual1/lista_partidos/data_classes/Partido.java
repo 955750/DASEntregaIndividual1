@@ -4,17 +4,34 @@ public class Partido {
 
     private EquipoPartido equipoLocal;
     private EquipoPartido equipoVisitante;
+    private String fecha;
+    private String hora;
 
-    public Partido(EquipoPartido pEquipoLocal, EquipoPartido pEquipoVisitante) {
+    public Partido(
+        EquipoPartido pEquipoLocal,
+        EquipoPartido pEquipoVisitante,
+        String pFecha,
+        String pHora
+    ) {
         this.equipoLocal = pEquipoLocal;
         this.equipoVisitante = pEquipoVisitante;
+        this.fecha = pFecha;
+        this.hora = pHora;
     }
 
     public EquipoPartido getEquipoLocal() {
-        return equipoLocal;
+        return this.equipoLocal;
     }
 
     public EquipoPartido getEquipoVisitante() {
-        return equipoVisitante;
+        return this.equipoVisitante;
+    }
+
+    public String getFecha() {
+        return this.fecha;
+    }
+
+    public String getHora() {
+        return this.hora;
     }
 }
