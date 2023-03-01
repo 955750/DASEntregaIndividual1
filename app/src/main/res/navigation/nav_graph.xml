@@ -9,7 +9,11 @@
         android:id="@+id/listaPartidosFragment"
         android:name="com.example.dasentregaindividual1.lista_partidos.ListaPartidosFragment"
         android:label="fragment_lista_partidos"
-        tools:layout="@layout/fragment_lista_partidos" />
+        tools:layout="@layout/fragment_lista_partidos" >
+        <action
+            android:id="@+id/action_listaPartidosFragment_to_detallePartidoFragment"
+            app:destination="@id/detallePartidoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/menuPrincipalFragment"
         android:name="com.example.dasentregaindividual1.menu_principal.MenuPrincipalFragment"
@@ -19,4 +23,9 @@
             android:id="@+id/action_menuPrincipalFragment_to_listaPartidosFragment"
             app:destination="@id/listaPartidosFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detallePartidoFragment"
+        android:name="com.example.dasentregaindividual1.detalle_partido.DetallePartidoFragment"
+        android:label="fragment_detalle_partido"
+        tools:layout="@layout/fragment_detalle_partido" />
 </navigation>

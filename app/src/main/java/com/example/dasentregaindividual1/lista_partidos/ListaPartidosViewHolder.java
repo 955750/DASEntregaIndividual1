@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dasentregaindividual1.R;
@@ -21,6 +22,7 @@ public class ListaPartidosViewHolder extends RecyclerView.ViewHolder {
     public TextView puntosEquipoVisitanteTV;
     public TextView fechaPartidoTV;
     public TextView horaPartidoTV;
+    public boolean[] seleccion;
 
     public ListaPartidosViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -38,5 +40,19 @@ public class ListaPartidosViewHolder extends RecyclerView.ViewHolder {
 
         fechaPartidoTV = itemView.findViewById(R.id.fecha_partido);
         horaPartidoTV = itemView.findViewById(R.id.hora_partido);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (seleccion[getAdapterPosition()]){
+                    Navigation.findNavController(view)
+                            .navigate(R.id.action_listaPartidosFragment_to_detallePartidoFragment);
+                }
+                else {
+                    // Nothing TO-DO
+                }
+                seleccion[getAdapterPosition()] = !seleccion[getAdapterPosition()];
+            }
+        });
     }
 }

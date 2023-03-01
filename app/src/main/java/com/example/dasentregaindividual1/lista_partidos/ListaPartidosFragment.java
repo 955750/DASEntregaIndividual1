@@ -23,7 +23,7 @@ public class ListaPartidosFragment extends Fragment {
     private ListenerDelFragment elListener;
     public interface ListenerDelFragment {
         Partido[] cargarPartidosJornada();
-        // void seleccionarElemento(int pos);
+        // void seleccionarElemento(int pos, View v);
     }
 
     @Override
@@ -39,9 +39,9 @@ public class ListaPartidosFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState
     ) {
         Log.d("ListaPartidosFragment", "onCreateView");
         return inflater.inflate(R.layout.fragment_lista_partidos, container, false);

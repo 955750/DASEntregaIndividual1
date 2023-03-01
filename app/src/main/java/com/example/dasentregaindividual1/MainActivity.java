@@ -1,10 +1,15 @@
 package com.example.dasentregaindividual1;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.dasentregaindividual1.detalle_partido.DetallePartidoFragment;
 import com.example.dasentregaindividual1.lista_partidos.ListaPartidosFragment;
 import com.example.dasentregaindividual1.lista_partidos.data_classes.EquipoPartido;
 import com.example.dasentregaindividual1.lista_partidos.data_classes.Partido;
@@ -150,4 +155,36 @@ public class MainActivity extends AppCompatActivity
     public Partido[] cargarPartidosJornada() {
         return partidosJornada;
     }
+
+    /*@Override
+    public void seleccionarElemento(int pos, View v) {
+        // DE MOMENTO PASAMOS SÓLO ESCUDOS Y MARCADOR
+        Partido partidoSeleccionado = partidosJornada[pos];
+
+        int puntosEquipoLocal = partidoSeleccionado.getEquipoLocal().getPuntos();
+        int escudoIdEquipoLocal = partidoSeleccionado.getEquipoLocal().getEscudoId();
+
+        int puntosEquipoVisitante = partidoSeleccionado.getEquipoVisitante().getPuntos();
+        int escudoIdEquipoVisitante = partidoSeleccionado.getEquipoVisitante().getEscudoId();
+
+        // ACTUAR EN FUNCIÓN DE LA ORIENTACIÓN (De momento se deja y luego se cambia)
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // "DetallePartidoFragment" EXISTE
+            Navigation.findNavController(v)
+                    .navigate(R.id.action_listaPartidosFragment_to_detallePartidoFragment);
+            DetallePartidoFragment detallePartidoFragment = (DetallePartidoFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.nav_host_fragment_2);
+            detallePartidoFragment.actualizarDatos(
+                puntosEquipoLocal,
+                escudoIdEquipoLocal,
+                puntosEquipoVisitante,
+                escudoIdEquipoVisitante
+            );
+
+        } else {
+            // "DetallePartidoFragment" NO EXISTE; HAY QUE LANZAR LA ACTIVIDAD QUE LO CONTIENE
+            // Enviar datos para crear el fragmento por argumento (safeArgs)
+        }
+    }*/
 }
