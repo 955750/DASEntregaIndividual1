@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,9 +45,17 @@ public class ListaPartidosViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (seleccion[getAdapterPosition()]){
-                    Navigation.findNavController(view)
-                            .navigate(R.id.action_listaPartidosFragment_to_detallePartidoFragment);
+                if (!seleccion[getAdapterPosition()]){
+                    /*Navigation.findNavController(view)
+                            .navigate(R.id.action_listaPartidosFragment_to_detallePartidoFragment);*/
+                    int puntosLocal = Integer.parseInt(puntosEquipoLocalTV.getText().toString());
+                    int puntosVisitante = Integer.parseInt(puntosEquipoVisitanteTV.getText()
+                            .toString());
+                    NavDirections accion = ListaPartidosFragmentDirections
+                            .actionListaPartidosFragmentToDetallePartidoFragment(
+                                    puntosLocal, puntosVisitante
+                            );
+                    Navigation.findNavController(view).navigate(accion);
                 }
                 else {
                     // Nothing TO-DO

@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.dasentregaindividual1.R;
+import com.example.dasentregaindividual1.lista_partidos.ListaPartidosFragment;
 
 public class DetallePartidoFragment extends Fragment {
 
@@ -42,33 +43,21 @@ public class DetallePartidoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d("DetallePartidoFragment", "onViewCreated");
 
+        /* RECUPERAR DATOS DEL PARTIDO SELECCIONADO */
+        DetallePartidoFragmentArgs argumentos = DetallePartidoFragmentArgs.fromBundle(getArguments());
+        int puntosLocal = argumentos.getIdEquipoLocal();
+        int puntosVisitante = argumentos.getIdEquipoVisitante();
+
         puntosEquipoLocalTV = view.findViewById(R.id.puntos_equipo_local);
-        puntosEquipoLocalTV.setText(String.valueOf(puntosEquipoLocal));
+        // puntosEquipoLocalTV.setText(String.valueOf(puntosEquipoLocal));
+        puntosEquipoLocalTV.setText(String.valueOf(puntosLocal));
         escudoEquipoLocalIV = view.findViewById(R.id.escudo_equipo_local);
         escudoEquipoLocalIV.setImageResource(escudoIdEquipoLocal);
 
         puntosEquipoVisitanteTV = view.findViewById(R.id.puntos_equipo_visitante);
-        puntosEquipoVisitanteTV.setText(String.valueOf(puntosEquipoVisitante));
+        // puntosEquipoVisitanteTV.setText(String.valueOf(puntosEquipoVisitante));
+        puntosEquipoVisitanteTV.setText(String.valueOf(puntosVisitante));
         escudoEquipoVisitanteIV = view.findViewById(R.id.escudo_equipo_visitante);
         escudoEquipoVisitanteIV.setImageResource(escudoIdEquipoVisitante);
-    }
-
-    public void actualizarDatos(
-        int puntosEquipoLocal,
-        int escudoIdEquipoLocal,
-        int puntosEquipoVisitante,
-        int escudoIdEquipoVisitante
-    ) {
-        if (puntosEquipoLocalTV != null) {
-            puntosEquipoLocalTV.setText(puntosEquipoLocal);
-            escudoEquipoLocalIV.setImageResource(escudoIdEquipoLocal);
-            puntosEquipoVisitanteTV.setText(puntosEquipoVisitante);
-            escudoEquipoVisitanteIV.setImageResource(escudoIdEquipoVisitante);
-        } else {
-            this.puntosEquipoLocal = puntosEquipoLocal;
-            this.escudoIdEquipoLocal = escudoIdEquipoLocal;
-            this.puntosEquipoVisitante = puntosEquipoVisitante;
-            this.escudoIdEquipoVisitante = escudoIdEquipoVisitante;
-        }
     }
 }

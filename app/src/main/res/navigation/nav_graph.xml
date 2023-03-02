@@ -27,5 +27,12 @@
         android:id="@+id/detallePartidoFragment"
         android:name="com.example.dasentregaindividual1.detalle_partido.DetallePartidoFragment"
         android:label="fragment_detalle_partido"
-        tools:layout="@layout/fragment_detalle_partido" />
+        tools:layout="@layout/fragment_detalle_partido" >
+        <argument
+            android:name="idEquipoLocal"
+            app:argType="integer" />
+        <argument
+            android:name="idEquipoVisitante"
+            app:argType="integer" />
+    </fragment>
 </navigation>
