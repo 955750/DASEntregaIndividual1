@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal">
+
+
+    <!-- (ELIMINADO)
+        app:strokeColor="@color/naranja_oscuro"
+        app:strokeWidth="4dp"
+        app:cardBackgroundColor="@color/naranja_vivo"
+    -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:strokeColor="@color/naranja_vivo"
+        app:strokeWidth="4dp"
+        app:cardBackgroundColor="@color/naranja_oscuro"
+        app:cardCornerRadius="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/posicion_clasificacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                tools:text="1"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="15"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/escudo_clasificacion"
+                    android:layout_width="40dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/escudo_baskonia" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/nombre_equipo_clasificacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                tools:text="Partizan Belgrade"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/partidos_ganados_totales"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                tools:text="14"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/partidos_perdidos_totales"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                tools:text="12"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/puntos_favor_totales"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                tools:text="2015"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/puntos_contra_totales"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                tools:text="1987"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/racha_ultimos_10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="14"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center"
+                tools:text="3-7"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

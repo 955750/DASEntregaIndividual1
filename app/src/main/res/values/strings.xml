@@ -9,4 +9,12 @@
     <string name="hint_campo_usuario">Introduce tu nombre de usuario</string>
     <string name="hint_campo_contraseña">Introduce tu contraseña</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="clasificacion">Clasificación</string>
+    <string name="posicion_header_corto">Pos.</string>
+    <string name="equipo">Equipo</string>
+    <string name="victorias_header_corto">V</string>
+    <string name="derrotas_header_corto">D</string>
+    <string name="puntos_favor_header_corto">PTS+</string>
+    <string name="puntos_contra_header_corto">PTS-</string>
+    <string name="racha_header_corto">U-10</string>
 </resources>

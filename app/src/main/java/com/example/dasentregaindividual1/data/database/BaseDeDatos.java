@@ -1,9 +1,11 @@
 package com.example.dasentregaindividual1.data.database;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -102,8 +104,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(
             "CREATE TABLE IF NOT EXISTS Equipo (" +
-                " 'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                " 'nombre' TEXT NOT NULL," +
+                " 'nombre' TEXT PRIMARY KEY NOT NULL," +
                 " 'escudo_id' INTEGER NOT NULL, " +
                 " 'part_ganados_tot' INTEGER NOT NULL, " +
                 " 'part_perdidos_tot' INTEGER NOT NULL, " +
@@ -116,6 +117,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
     }
 
     private void añadirUsuarios(SQLiteDatabase sqLiteDatabase) {
+        Log.d("BaseDeDatos", "añadirUsuarios");
         sqLiteDatabase.execSQL(
             "INSERT INTO Usuario (" +
                 "'nombre_usuario', 'contraseña'" +
@@ -130,7 +132,15 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         );
     }
 
+    private void getEquiposOrdenadosPorDerrotasAsc(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.rawQuery(
+        "SELECT * FROM Equipo " +
+            "ORDER BY part_perdidos_tot ASC", null
+        );
+    }
+
     private void añadirEquipos(SQLiteDatabase sqLiteDatabase) {
+        Log.d("BaseDeDatos", "añadirEquipos");
         String[] nombres = {"Alba Berlin", "Anadolu Efes", "AS Monaco", "Baskonia", "Bayern Munich",
                             "Crvena Zvezda", "Emporio Armani Milan", "FC Barcelona", "Fenerbahce",
                             "LDLC Asvel Villeurbane", "Maccabi Tel Aviv", "Olympiacos",
@@ -158,18 +168,16 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         Integer[] partPerdidosUlt10 = {7, 5, 5, 7, 5, 7, 5, 3, 4, 8, 6, 2, 8, 3, 2, 4, 5, 5};
 
         for (int i = 0; i < 18; i++) {
-            @SuppressLint("DefaultLocale")
-            String consulta = String.format(
-                "INSERT INTO Equipo (" +
-                    "'nombre', 'escudo_id', 'part_ganados_tot', 'part_perdidos_tot'," +
-                    "'puntos_favor_tot', 'puntos_contra_tot', 'part_ganados_ult_10'," +
-                    "'part_perdidos_ult_10'" +
-                ")" +
-                "VALUES (%1$s, %2$d, %3$d, %4$d, %5$d, %6$d, %7$d, %8$d)",
-                nombres[i], idsEscudos[i], partGanadosTot[i], partPerdidosTot[i], puntosFavorTot[i],
-                puntosContraTot[i], partGanadosUlt10[i], partPerdidosUlt10[i]
-            );
-            sqLiteDatabase.execSQL(consulta);
+            ContentValues nuevoEquipo = new ContentValues();
+            nuevoEquipo.put("nombre", nombres[i]);
+            nuevoEquipo.put("escudo_id", idsEscudos[i]);
+            nuevoEquipo.put("part_ganados_tot", partGanadosTot[i]);
+            nuevoEquipo.put("part_perdidos_tot", partPerdidosTot[i]);
+            nuevoEquipo.put("puntos_favor_tot", puntosFavorTot[i]);
+            nuevoEquipo.put("puntos_contra_tot", puntosContraTot[i]);
+            nuevoEquipo.put("part_ganados_ult_10", partGanadosUlt10[i]);
+            nuevoEquipo.put("part_perdidos_ult_10", partPerdidosUlt10[i]);
+            sqLiteDatabase.insert("Equipo", null, nuevoEquipo);
         }
     }
 }

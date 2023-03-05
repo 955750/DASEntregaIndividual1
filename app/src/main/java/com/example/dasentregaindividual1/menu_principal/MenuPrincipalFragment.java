@@ -19,6 +19,7 @@ import com.example.dasentregaindividual1.R;
 public class MenuPrincipalFragment extends Fragment {
 
     private Button botonJornadas;
+    private Button botonClasificacion;
 
     @Override
     public View onCreateView(
@@ -40,7 +41,17 @@ public class MenuPrincipalFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavDirections accion = MenuPrincipalFragmentDirections
-                        .actionMenuPrincipalFragmentToListaPartidosFragment();
+                    .actionMenuPrincipalFragmentToListaPartidosFragment();
+                Navigation.findNavController(view).navigate(accion);
+            }
+        });
+
+        botonClasificacion = (Button) view.findViewById(R.id.boton_clasificacion);
+        botonClasificacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavDirections accion = MenuPrincipalFragmentDirections
+                    .actionMenuPrincipalFragmentToClasificacionFragment();
                 Navigation.findNavController(view).navigate(accion);
             }
         });

@@ -24,11 +24,11 @@ public class ListaPartidosAdapter extends RecyclerView.Adapter<ListaPartidosView
     @NonNull
     @Override
     public ListaPartidosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View listaJornadasItem = LayoutInflater
+        View listaPartidosItem = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.lista_partidos_item, parent, false);
         ListaPartidosViewHolder listaPartidosViewHolder = new ListaPartidosViewHolder(
-                listaJornadasItem);
+                listaPartidosItem);
         listaPartidosViewHolder.seleccion = seleccionados;
         return listaPartidosViewHolder;
     }
