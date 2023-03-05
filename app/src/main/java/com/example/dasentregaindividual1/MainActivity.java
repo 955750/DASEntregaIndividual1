@@ -1,15 +1,11 @@
 package com.example.dasentregaindividual1;
 
-import android.content.Intent;
-import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.dasentregaindividual1.detalle_partido.DetallePartidoFragment;
+import com.example.dasentregaindividual1.data.database.BaseDeDatos;
 import com.example.dasentregaindividual1.lista_partidos.ListaPartidosFragment;
 import com.example.dasentregaindividual1.lista_partidos.data_classes.EquipoPartido;
 import com.example.dasentregaindividual1.lista_partidos.data_classes.Partido;
@@ -25,6 +21,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         /* Más adelante se hará carga de base de datos */
+        BaseDeDatos gestorDB = new BaseDeDatos(this, "NombreBD", null, 1);
+        SQLiteDatabase bd = gestorDB.getReadableDatabase();
 
         // Crear equipos (la racha hay que cambiarla a últimos 10 partidos)
         EquipoPartido olympiacos = new EquipoPartido(

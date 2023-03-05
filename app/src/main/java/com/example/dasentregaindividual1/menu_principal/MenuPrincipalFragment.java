@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -38,8 +39,9 @@ public class MenuPrincipalFragment extends Fragment {
         botonJornadas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(
-                        R.id.action_menuPrincipalFragment_to_listaPartidosFragment);
+                NavDirections accion = MenuPrincipalFragmentDirections
+                        .actionMenuPrincipalFragmentToListaPartidosFragment();
+                Navigation.findNavController(view).navigate(accion);
             }
         });
     }

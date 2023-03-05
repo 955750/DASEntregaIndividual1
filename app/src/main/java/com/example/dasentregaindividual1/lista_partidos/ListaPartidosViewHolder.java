@@ -53,7 +53,8 @@ public class ListaPartidosViewHolder extends RecyclerView.ViewHolder {
                             .toString());
                     NavDirections accion = ListaPartidosFragmentDirections
                             .actionListaPartidosFragmentToDetallePartidoFragment(
-                                    puntosLocal, puntosVisitante
+                                    puntosLocal,
+                                    puntosVisitante
                             );
                     Navigation.findNavController(view).navigate(accion);
                 }

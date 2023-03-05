@@ -1,6 +1,8 @@
 package com.example.dasentregaindividual1.lista_partidos;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dasentregaindividual1.R;
+import com.example.dasentregaindividual1.data.database.BaseDeDatos;
 import com.example.dasentregaindividual1.lista_partidos.data_classes.Partido;
 
 public class ListaPartidosFragment extends Fragment {
@@ -55,4 +58,14 @@ public class ListaPartidosFragment extends Fragment {
         Partido[] listaPartidos = elListener.cargarPartidosJornada();
         jornadasRecyclerView.setAdapter(new ListaPartidosAdapter(listaPartidos));
     }
+
+    /*private Partido[] getPartidosJornada(int idJornada) {
+        BaseDeDatos GestorDB = new BaseDeDatos (requireContext(), "Euroliga", null, 1);
+        SQLiteDatabase bd = GestorDB.getReadableDatabase();
+
+        Cursor c = bd.rawQuery("SELECT Codigo,Nombre FROM Estudiantes WHERE Codigo > 2", null);
+        while (c.moveToNext()) {
+            // String
+        }
+    }*/
 }

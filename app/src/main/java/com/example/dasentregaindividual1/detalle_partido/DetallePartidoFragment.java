@@ -27,6 +27,16 @@ public class DetallePartidoFragment extends Fragment {
     private int puntosEquipoLocal, escudoIdEquipoLocal;
     private int puntosEquipoVisitante, escudoIdEquipoVisitante;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        /* RECUPERAR DATOS DEL PARTIDO SELECCIONADO */
+        if (getArguments() != null) {
+            puntosEquipoLocal = getArguments().getInt("idEquipoLocal");
+            puntosEquipoVisitante = getArguments().getInt("idEquipoVisitante");
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(
@@ -43,20 +53,15 @@ public class DetallePartidoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d("DetallePartidoFragment", "onViewCreated");
 
-        /* RECUPERAR DATOS DEL PARTIDO SELECCIONADO */
-        DetallePartidoFragmentArgs argumentos = DetallePartidoFragmentArgs.fromBundle(getArguments());
-        int puntosLocal = argumentos.getIdEquipoLocal();
-        int puntosVisitante = argumentos.getIdEquipoVisitante();
-
         puntosEquipoLocalTV = view.findViewById(R.id.puntos_equipo_local);
         // puntosEquipoLocalTV.setText(String.valueOf(puntosEquipoLocal));
-        puntosEquipoLocalTV.setText(String.valueOf(puntosLocal));
+        puntosEquipoLocalTV.setText(String.valueOf(puntosEquipoLocal));
         escudoEquipoLocalIV = view.findViewById(R.id.escudo_equipo_local);
         escudoEquipoLocalIV.setImageResource(escudoIdEquipoLocal);
 
         puntosEquipoVisitanteTV = view.findViewById(R.id.puntos_equipo_visitante);
         // puntosEquipoVisitanteTV.setText(String.valueOf(puntosEquipoVisitante));
-        puntosEquipoVisitanteTV.setText(String.valueOf(puntosVisitante));
+        puntosEquipoVisitanteTV.setText(String.valueOf(puntosEquipoVisitante));
         escudoEquipoVisitanteIV = view.findViewById(R.id.escudo_equipo_visitante);
         escudoEquipoVisitanteIV.setImageResource(escudoIdEquipoVisitante);
     }
