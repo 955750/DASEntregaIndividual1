@@ -9,6 +9,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.example.dasentregaindividual1.R;
+import com.example.dasentregaindividual1.lista_partidos.data_classes.Partido;
 
 import java.util.ArrayList;
 
@@ -30,19 +31,10 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         añadirUsuarios(sqLiteDatabase);
         añadirEquipos(sqLiteDatabase);
         añadirJugadores(sqLiteDatabase);
+        añadirPartidos(sqLiteDatabase);
         /*
 
         PRIMARY KEY (id)"
-
-        sqLiteDatabase.execSQL(
-            "CREATE TABLE Partido (" +
-                " 'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                " 'numero_jornada' INTEGER NOT NULL, " +
-                " 'temporada_regular_si_no' BOOLEAN NOT NULL, " +
-                " 'fecha' DATETIME NOT NULL, " +
-                " 'hora' TIMESTAMP NOT NULL" +
-            ")"
-        );
 
         sqLiteDatabase.execSQL(
             "CREATE TABLE Favorito (" +
@@ -77,8 +69,8 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Usuario");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Equipo");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Jugador");
-        /*sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Partido");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Favorito");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Partido");
+        /*sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Favorito");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Estadisticas");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Juega");*/
         onCreate(sqLiteDatabase);
@@ -116,10 +108,22 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 " 'altura' FLOAT, " +
                 " 'fecha_nacimiento' DATETIME, " +
                 " PRIMARY KEY('numero', 'nombre_equipo'), " +
-                " FOREIGN KEY('nombre_equipo') REFERENCES Equipo(nombre)" +
+                " FOREIGN KEY('nombre_equipo') REFERENCES Equipo('nombre')" +
             ")"
         );
 
+
+        // fecha -> 'YYYY-MM-DD'
+        // hora -> ADBZ. '22:30+01' (+1 Zona horaria Madrid)
+        sqLiteDatabase.execSQL(
+            "CREATE TABLE Partido (" +
+                " 'id' INTEGER NOT NULL, " +
+                " 'numero_jornada' INTEGER NOT NULL, " +
+                " 'fecha' TEXT NOT NULL, " +
+                " 'hora' TEXT NOT NULL, " +
+                " PRIMARY KEY('id', 'numero_jornada')" +
+            ")"
+        );
     }
 
     private void añadirUsuarios(SQLiteDatabase sqLiteDatabase) {
@@ -188,17 +192,11 @@ public class BaseDeDatos extends SQLiteOpenHelper {
     }
 
     private void añadirJugadores(SQLiteDatabase sqLiteDatabase) {
-        /*String[] nombresEquipos = {"Alba Berlin", "Anadolu Efes", "AS Monaco", "Baskonia",
+        String[] nombresEquipos = {"Alba Berlin", "Anadolu Efes", "AS Monaco", "Baskonia",
                 "Bayern Munich", "Crvena Zvezda", "Emporio Armani Milan", "FC Barcelona",
                 "Fenerbahce", "LDLC Asvel Villeurbane", "Maccabi Tel Aviv", "Olympiacos",
                 "Panathinaikos", "Partizan Belgrade", "Real Madrid", "Valencia Basket",
-                "Virtus Bologna", "Zalgiris Kaunas"};*/
-
-        String[] nombresEquipos = {"Alba Berlin", "Anadolu Efes", "-", "Baskonia",
-                "-", "-", "-", "-",
-                "-", "-", "-", "-",
-                "-", "-", "Partizan Belgrade", "Valencia Basket",
-                "-", "-"
+                "Virtus Bologna", "Zalgiris Kaunas"
         };
 
         /*
@@ -208,15 +206,17 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         ArrayList<String[]> nombresJugadoresEquipos = new ArrayList<>();
 
         /* ALBA BERLIN */
-        Integer[] numerosAlba = {0, 1, 2, 3, 7, 9, 11, 19, 21, 32, 43};
+        Integer[] numerosAlba = {0, 1, 2, 3, 6, 7, 8, 9, 10, 11, 14, 19, 21, 25, 32, 43, 44, 45, 50};
         String[] nombresJugadoresAlba = {"Maodo Lo", "Gabriele Procida", "Nils Machowski",
-                "Jaleen Smith", "Yanni Wetzell", "Jonas Mattisseck", "Rikus Schulte",
-                "Louis Olinde", "Christ Koumadje", "Johaness Thiemann", "Luke Sikma"
+                "Jaleen Smith", "Malte Delow", "Yanni Wetzell", "Marcus Eriksson",
+                "Jonas Mattisseck", "Tim Schneider", "Rikus Schulte", "Linus Ruf", "Louis Olinde",
+                "Christ Koumadje", "Elias Rapieque", "Johaness Thiemann", "Luke Sikma",
+                "Ben Lammers", "Tamir Blatt", "Yovel Zoosman"
         };
         numerosEquipos.add(numerosAlba);
         nombresJugadoresEquipos.add(nombresJugadoresAlba);
 
-        /* ANADOLU EFES (ENTERO BIEN) */
+        /* ANADOLU EFES */
         Integer[] numerosEfes = {0, 1, 2, 4, 5, 6, 11, 12, 14, 18, 19, 21, 22, 24, 41, 42};
         String[] nombresJugadoresEfes = {"Shane Larkin", "Rodrigue Beaubois", "Chris Singleton",
                 "Dogus Balbay", "Karahan Efeoglu", "Elijah Bryant", "Erten Gazi", "Will Clyburn",
@@ -226,7 +226,17 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         numerosEquipos.add(numerosEfes);
         nombresJugadoresEquipos.add(nombresJugadoresEfes);
 
-        /* BASKONIA (ENTERO BIEN)*/
+        /* AS MONACO */
+        Integer[] numerosMonaco = {0, 1, 2, 3, 4, 5, 6, 11, 20, 23, 24, 32, 45, 55, 99};
+        String[] nombresJugadoresMonaco = {"Elie Okobo", "Chima Moneke", "Matys Pommier",
+                "Jordan Loyd", "Jaron Blossomgame", "Joan Makoundou", "Ambroise Couture",
+                "Alpha Diallo", "Donatas Montiejunas", "Mohammad Amini", "Yakuba Ouattara",
+                "Matthew Strazel", "Donta Hall", "Mike James", "John Brown"
+        };
+        numerosEquipos.add(numerosMonaco);
+        nombresJugadoresEquipos.add(nombresJugadoresMonaco);
+
+        /* BASKONIA */
         Integer[] numerosBaskonia = {0, 1, 2, 4, 6, 7, 8, 9, 11, 13, 14, 19, 20, 21, 23, 24, 31, 34, 47};
         String[] nombresJugadoresBaskonia = {"Markus Howard", "Max Heidegger", "Sander Raieste",
                 "Joseba Querejeta", "Pavel Savkov", "Pierria Henry", "Tadas Sederkerskis",
@@ -237,26 +247,158 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         numerosEquipos.add(numerosBaskonia);
         nombresJugadoresEquipos.add(nombresJugadoresBaskonia);
 
+        /* BAYERN MUNICH */
+        Integer[] numerosBayern = {0, 2, 4, 5, 7, 8, 9, 10, 11, 13, 16, 17, 20, 21, 33, 45};
+        String [] nombresJugadoresBayern = {"Nick Weiler-Babb", "Corey Walden", "Dennis Seeley",
+                "Cassius Winston", "Niels Giffey", "Othello Hunter", "Isaac Bonga",
+                "Ognjen Jaramaz", "Vladimir Lucic", "Andreas Obst", "Paul Zipser", "Niklas Wimberg",
+                "Elias Harris", "Augustine Rubit", "Freddie Gillespie", "Zylan Anthony Cheatham"
+        };
+        numerosEquipos.add(numerosBayern);
+        nombresJugadoresEquipos.add(nombresJugadoresBayern);
+
+        /* CRVENA ZVEZDA */
+        Integer[] numerosCrvena = {0, 1, 2, 7, 9, 10, 12, 13, 15, 20, 22, 26, 27, 32, 33, 50};
+        String[] nombresJugadoresCrvena = {"John Holland", "Luca Vildoza", "Stefan Lazarevic",
+                "Facundo Campazzo", "Luka Mitrovic", "Branko Lazic", "Hassan Martin",
+                "Ognjen Dobric", "Miroslav Raduljica", "Nikola Ivanovic", "Dalibor Ilic",
+                "Nemanja Nedovic", "Stefan Markovic", "Ognjen Kuzmic", "Filip Petrusev",
+                "Benjamin Bentil"
+        };
+        numerosEquipos.add(numerosCrvena);
+        nombresJugadoresEquipos.add(nombresJugadoresCrvena);
+
+        /* EMPORIO ARMANI MILAN */
+        Integer[] numerosMilan = {0, 1, 2, 3, 5, 7, 9, 12, 13, 17, 19, 22, 25, 31, 40, 42, 70, 77};
+        String[] nombresJugadoresMilan = {"Brandon Davies", "Deshaun Thomas",
+                "Timothe Luwawu-Cabarrot", "Naz Mitrou-Long", "Kevin Pangos", "Stefano Tonut",
+                "Nicolo Melli", "Billy Baron", "Shabazz Napier", "Giampaolo Ricci", "Paul Biligha",
+                "Devon Hall", "Tommaso Baldasso", "Shavon Shields", "Davide Alviti", "Kyle Hines",
+                "Luigi Datome", "Johannes Voigtmann"
+        };
+        numerosEquipos.add(numerosMilan);
+        nombresJugadoresEquipos.add(nombresJugadoresMilan);
+
+        /* FC BARCELONA */
+        Integer[] numerosBarcelona = {1, 3, 5, 6, 8, 10, 13, 20, 21, 22, 23, 24, 31, 33, 46, 50,
+                                      54, 55};
+        String[] nombresJugadoresBarcelona = {"Oscar Da Silva", "Oriol Pauli", "Sertac Sanli",
+                "Jan Vesely", "Sergi Martinez", "Nikola Kalinic", "Tomas Satoransky",
+                "Nicolas Laprovittola", "Alex Abrines", "Cory Higgins", "Mike Tobey", "Kyle Kuric",
+                "Rokas Jokubaitis", "Nikola Mirotic", "James Nnaji", "Martin Iglesias",
+                "Kasparas Jakucionis", "Dame Sarr"
+        };
+        numerosEquipos.add(numerosBarcelona);
+        nombresJugadoresEquipos.add(nombresJugadoresBarcelona);
+
+        /* FENERBAHCE */
+        Integer[] numerosFenerbahce = {0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 13, 21, 22, 23, 27, 31, 33,
+                                       37};
+        String[] nombresJugadoresFenerbahce = {"Johnathan Motley", "Metecan Birsen",
+                "Sehmus Hazer", "Scottie Wilbekin", "Carsen Edwards", "Ismet Akpinar",
+                "Nemanja Bjelica", "Samet Geyik", "Melih Mahmutoglu", "Nigel Hayes-Davis", "Tarik Biberovic",
+                "Dyshawn Pierre", "Tonye Jekiri", "Marko Guduric", "Tyler Dorsey", "Devin Booker",
+                "Nick Calathes", "Kostas Antetokoumpo"
+        };
+        numerosEquipos.add(numerosFenerbahce);
+        nombresJugadoresEquipos.add(nombresJugadoresFenerbahce);
+
+        /* LDLC ASVEL VILLEURBANE */
+        Integer[] numerosAsvel = {0, 2, 3, 5, 7, 8, 9, 10, 12, 19, 23, 31, 32, 33, 35};
+        String[] nombresJugadoresAsvel = {"Jonah Mathews", "Amine Noua", "Dee Bost",
+                "Charles Kahudi", "Joffrey Lauvergne", "Antoine Diot", "Alex Tyus",
+                "Zaccharie Risacher", "Nando de Colo", "Youssoupha Fall", "David Lighty",
+                "Yaacov Noam", "Retin Obasohan", "Parket Jackson-Cartwright", "Yves Pons"
+        };
+        numerosEquipos.add(numerosAsvel);
+        nombresJugadoresEquipos.add(nombresJugadoresAsvel);
+
+        /* MACCABI TEL AVIV */
+        Integer[] numerosMaccabi = {3, 4, 5, 6, 8, 9, 10, 12, 13, 15, 17, 18, 20, 22, 32, 33, 50};
+        String[] nombresJugadoresMaccabi = {"Jalen Adams", "Lorenzo Brown", "Wade Baldwin IV",
+                "Jarell Martin", "Rafi Menco", "Roman Sorkin", "Guy Pnini", "John Dibartolomeo",
+                "Darrun Hilliard", "Jake Cohen", "Suleiman Braimoh", "Tomer Agmon",
+                "Austin Hollins", "Alex Poythress", "Josh Nebo", "Iftah Ziv", "Bonzie Colson"
+        };
+        numerosEquipos.add(numerosMaccabi);
+        nombresJugadoresEquipos.add(nombresJugadoresMaccabi);
+
+        /* OLYMPIACOS */
+        Integer[] numerosOlympiacos = {0, 3, 4, 5, 9, 10, 11, 14, 16, 19, 21, 25, 28, 77, 81};
+        String[] nombresJugadoresOlympiacos = {"Thomas Walkup", "Isaiah Cannan",
+                "Michalis Lountzis", "Giannoulis Larentzakis", "George Papas", "Moustapha Fall",
+                "Kostas Sloukas", "Sasha Vezenkov", "Kostas Papanikolau", "Panagiotis Tsamis",
+                "Joel Bolomboy", "Alec Peters", "Tarik Black", "Shaquielle McKissic",
+                "Veniamin Abosi"
+        };
+        numerosEquipos.add(numerosOlympiacos);
+        nombresJugadoresEquipos.add(nombresJugadoresOlympiacos);
+
+        /* PANATHINAIKOS */
+        Integer[] numerosPanathinaikos = {0, 3, 5, 6, 7, 8, 9, 11, 12, 16, 17, 20, 21, 24, 37, 40,
+                                          72, 77};
+        String[] nombresJugadoresPanathinaikos = {"Panagiotis Kalaitzakis", "Nate Wolters",
+                "Paris Lee", "Georgios Papagiannis", "Eleftherios Bochoridis", "Derrick Williams",
+                "Dimitris Agravanis", "Nikos Pappas", "Andrew Andrews", "Georgios Kalaitzakis",
+                "Matt Thomas", "Alexandros Samontourov", "Neoklis Avdalas", "Dwayne Bacon",
+                "Mateusz Ponitka", "Marius Grigonis", "Eleftherios Mantzoukas", "Arturas Gudaitis"
+        };
+        numerosEquipos.add(numerosPanathinaikos);
+        nombresJugadoresEquipos.add(nombresJugadoresPanathinaikos);
+
         /* PARTIZAN BELGRADE */
-        Integer[] numerosPartizan = {1, 2, 4, 7, 9, 10, 11, 21, 26, 32, 33, 41};
+        Integer[] numerosPartizan = {1, 2, 4, 5, 7, 9, 10, 11, 12, 21, 26, 32, 33, 41};
         String[] nombresJugadoresPartizan = {"Tristan Vukcevic", "Zach Leday", "Aleksa Avramovic",
-                "Kevin Punter", "Alen Smailagic", "Ioannis Papapetrou", "Dante Exum",
-                "James Nunnally", "Mathias Lessort", "Uros Trifunovic", "Danilo Andjusic",
-                "Yam Madar"
+                "Balsa Koprivica", "Kevin Punter", "Alen Smailagic", "Ioannis Papapetrou",
+                "Dante Exum", "Vladimir Brodziansky", "James Nunnally", "Mathias Lessort",
+                "Uros Trifunovic", "Danilo Andjusic", "Yam Madar"
         };
         numerosEquipos.add(numerosPartizan);
         nombresJugadoresEquipos.add(nombresJugadoresPartizan);
 
-        /* VALENCIA BASKET*/
-        Integer[] numerosValencia = {0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 14, 41};
+        /* REAL MADRID */
+        Integer[] numerosMadrid = {0, 1, 3, 5, 6, 7, 8, 11, 12, 13, 14, 17, 21, 22, 23, 28, 30, 31};
+        String[] nombresJugadoresMadrid = {"Nigel Williams-Goss", "Fabien Causeur",
+                "Anthony Randolph", "Rudy Fernandez", "Alberto Abalde", "Hugo Gonzalez",
+                "Adam Hanga", "Mario Hezonja", "Carlos Alocen", "Sergio Rodriguez",
+                "Gabriel Deck", "Vincent Poirier", "Petr Cornelie", "Walter Tavares",
+                "Sergio Llull", "Guerschon Yabusele", "Eli Ndiaye", "Dznan Musa"
+        };
+        numerosEquipos.add(numerosMadrid);
+        nombresJugadoresEquipos.add(nombresJugadoresMadrid);
+
+        /* VALENCIA BASKET */
+        Integer[] numerosValencia = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14, 16, 21, 24, 41, 50, 54, 55, 57};
         String[] nombresJugadoresValencia = {"Jared Harper", "Victor Claver", "Josep Puerto",
                 "Klemen Prepelic", "Jaime Pradilla", "James Webb III", "Xabi Lopez-Arostegui",
-                "Chris Jones", "Jonah Radebaugh", "Shannon Evans", "Bojan Dubljevic",
-                "Jasiel Rivero"
+                "Chris Jones", "Guillem Ferrando", "San Van Rossom", "Jonah Radebaugh",
+                "Shannon Evans", "Bojan Dubljevic", "Millan Jimenez", "Kyle Alexander",
+                "Martin Hermannsson", "Jasiel Rivero", "Sergio de Larrea", "Pablo Navarro",
+                "Lucas Marí", "David Barbera"
         };
         numerosEquipos.add(numerosValencia);
         nombresJugadoresEquipos.add(nombresJugadoresValencia);
 
+        /* VIRTUS BOLOGNA */
+        Integer[] numerosVirtus = {0, 1, 3, 6, 7, 14, 19, 21, 23, 24, 25, 29, 34, 37, 44, 55};
+        String[] nombresJugadoresVirtus = {"Isaia Cordinier", "Niccolo Mannion", "Marco Belinelli",
+                "Alessandro Pajola", "Ismael Bako", "Mam Jaiteh", "Iffe Lundberg",
+                "Tornike Shengelia", "Daniel Hackett", "Leo Menalo", "Jordan Mickey", "Gora Camara",
+                "Kyle Weems", "Semi Ojeleye", "Milos Teodosic", "Awudu Abass"
+        };
+        numerosEquipos.add(numerosVirtus);
+        nombresJugadoresEquipos.add(nombresJugadoresVirtus);
+
+        /* ZALGIRIS KAUNAS */
+        Integer[] numerosZalgiris = {1, 2, 3, 4, 7, 8, 10, 14, 15, 16, 17, 25, 33, 34, 45, 51, 92};
+        String[] nombresJugadoresZalgiris = {"Isaiah Taylor", "Keenan Evans", "Dovydas Giedraitis",
+                "Lukas Lekavicius", "Kajus Kublickas", "Kevarrius Hayes", "Rolands Smits",
+                "Motiejus Krivas", "Laurynas Birutis", "Karolis Lukosiunas", "Ignas Brazdeikis",
+                "Achille Polonara", "Tomas Dimsa", "Tyler Cavanaugh", "Liutauras Lelevicius",
+                "Arnas Butkevicius", "Edgaras Ulanovas"
+        };
+        numerosEquipos.add(numerosZalgiris);
+        nombresJugadoresEquipos.add(nombresJugadoresZalgiris);
 
         for (int i = 0; i < nombresEquipos.length; i++) {
             String nombreEq = nombresEquipos[i];
@@ -278,6 +420,51 @@ public class BaseDeDatos extends SQLiteOpenHelper {
             nuevoJugador.put("nombre_equipo", nombreEq);
             nuevoJugador.put("nombre", nombresJug[i]);
             sqLiteDatabase.insert("Jugador", null, nuevoJugador);
+        }
+    }
+
+    private void añadirPartidos(SQLiteDatabase sqLiteDatabase) {
+        /*// fecha -> 'YYYY-MM-DD'
+        // hora -> ADBZ. '22:30+01' (+1 Zona horaria Madrid)
+        sqLiteDatabase.execSQL(
+                "CREATE TABLE Partido (" +
+                        " 'id' INTEGER NOT NULL, " +
+                        " 'numero_jornada' INTEGER NOT NULL, " +
+                        " 'fecha' TEXT NOT NULL, " +
+                        " 'hora' TEXT NOT NULL, " +
+                        " PRIMARY KEY('id', 'numero_jornada')" +
+                        ")"
+        );*/
+
+        /* AÑADIR MÁS JORNADAS MÁS ADELANTE */
+        Integer[] jornadas = {27};
+
+        /* JORNADA 27 */
+        String[] fechasJ27 = {"2023-03-07", "2023-03-07", "2023-03-07", "2023-03-07",
+                              "2023-03-07", "2023-03-07", "2023-03-08", "2023-03-08",
+                              "2023-03-08"};
+        String[] horasJ27 = {"20:00", "20:00", "20:30", "20:30", "20:45", "21:00", "18:30",
+                             "20:30", "21:00"};
+
+        for (Integer jornada : jornadas) {
+            añadirJornada(jornada, fechasJ27, horasJ27, sqLiteDatabase);
+        }
+    }
+
+    private void añadirJornada(
+        int numJornada,
+        String[] fechas,
+        String[] horas,
+        SQLiteDatabase sqLiteDatabase
+    ) {
+        // Al ser 18 equipos cada jornada son 9 partidos ( id [0 - 8] )
+        for (int i = 0; i <= 8; i++) {
+            ContentValues nuevaJornada = new ContentValues();
+            nuevaJornada.put("id", i);
+            nuevaJornada.put("numero_jornada", numJornada);
+            nuevaJornada.put("fecha", fechas[i]);
+            nuevaJornada.put("hora", horas[i]);
+            sqLiteDatabase.insert("Partido", null, nuevaJornada);
         }
     }
 }

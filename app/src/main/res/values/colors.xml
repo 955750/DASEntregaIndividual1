@@ -10,6 +10,7 @@
 
     <!-- OTROS COLORES -->
     <color name="naranja_vivo">#FF3C00</color>
+    <color name="naranja_menos_vivo">#FF6030</color>
     <color name="naranja_oscuro">#BF2E02</color>
     <color name="naranja_claro">#FF9969</color>
     <color name="negro">#FF000000</color>

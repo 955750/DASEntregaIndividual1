@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dasentregaindividual1.R;
+import com.google.android.material.card.MaterialCardView;
 
 public class ClasificacionViewHolder extends RecyclerView.ViewHolder {
 
@@ -19,6 +20,7 @@ public class ClasificacionViewHolder extends RecyclerView.ViewHolder {
     public TextView puntosFavorTotalesTV;
     public TextView puntosContraTotalesTV;
     public TextView rachaUltimos10TV;
+    public MaterialCardView cardClasificacion;
 
     public ClasificacionViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -31,5 +33,6 @@ public class ClasificacionViewHolder extends RecyclerView.ViewHolder {
         puntosFavorTotalesTV = itemView.findViewById(R.id.puntos_favor_totales);
         puntosContraTotalesTV = itemView.findViewById(R.id.puntos_contra_totales);
         rachaUltimos10TV = itemView.findViewById(R.id.racha_ultimos_10);
+        cardClasificacion = itemView.findViewById(R.id.card_clasificacion);
     }
 }

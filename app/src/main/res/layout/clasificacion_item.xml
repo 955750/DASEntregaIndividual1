@@ -7,12 +7,19 @@
     android:layout_gravity="center_horizontal">
 
 
-    <!-- (ELIMINADO)
-        app:strokeColor="@color/naranja_oscuro"
+    <!--
+        (CLASIFICADO)
+        app:strokeColor="@color/naranja_vivo"
         app:strokeWidth="4dp"
-        app:cardBackgroundColor="@color/naranja_vivo"
+        app:cardBackgroundColor="@color/naranja_oscuro"
+
+        (ELIMINADO)
+        app:strokeColor="@color/naranja_menos_vivo"
+        app:strokeWidth="4dp"
+        app:cardBackgroundColor="@color/naranja_claro"
     -->
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_clasificacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"

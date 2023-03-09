@@ -40,7 +40,7 @@ public class ClasificacionFragment extends Fragment {
 
         clasificacionRecyclerView = view.findViewById(R.id.clasifiacion_recycler_view);
         // RECUPERAR DATOS DE LA BBDD
-        BaseDeDatos gestorBD = new BaseDeDatos(requireContext(), "Euroliga2", null, 1);
+        BaseDeDatos gestorBD = new BaseDeDatos(requireContext(), "Euroliga", null, 1);
         SQLiteDatabase bd = gestorBD.getReadableDatabase();
         Cursor c = bd.rawQuery(
         "SELECT * FROM Equipo " +

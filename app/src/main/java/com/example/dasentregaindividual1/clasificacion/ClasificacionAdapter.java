@@ -1,10 +1,14 @@
 package com.example.dasentregaindividual1.clasificacion;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dasentregaindividual1.R;
@@ -31,6 +35,7 @@ public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionView
 
     @Override
     public void onBindViewHolder(@NonNull ClasificacionViewHolder holder, int position) {
+        Context context = holder.itemView.getContext();
         EquipoClasificacion equipoActual = clasificacion[position];
         holder.posicionClasifacionTV.setText(String.valueOf(equipoActual.getPosicion()));
         holder.escudoTV.setImageResource(equipoActual.getEscudoId());
@@ -47,6 +52,14 @@ public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionView
                 equipoActual.getPartidosPerdidosUltimos10()
             );
         holder.rachaUltimos10TV.setText(rachaUltimosPartidos);
+        if (equipoActual.getPosicion() > 8) {
+            Log.d("ClasificacionAdapter", String.valueOf(equipoActual.getPosicion()));
+            holder.cardClasificacion.setStrokeColor(context.getColor(R.color.naranja_menos_vivo));
+            holder.cardClasificacion.setCardBackgroundColor(context.getColor(R.color.naranja_claro));
+        } else {
+            holder.cardClasificacion.setStrokeColor(context.getColor(R.color.naranja_vivo));
+            holder.cardClasificacion.setCardBackgroundColor(context.getColor(R.color.naranja_oscuro));
+        }
     }
 
     @Override

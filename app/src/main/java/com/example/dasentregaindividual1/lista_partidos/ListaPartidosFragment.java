@@ -47,6 +47,7 @@ public class ListaPartidosFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
         Log.d("ListaPartidosFragment", "onCreateView");
+
         return inflater.inflate(R.layout.fragment_lista_partidos, container, false);
     }
 
@@ -54,8 +55,36 @@ public class ListaPartidosFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        BaseDeDatos GestorDB = new BaseDeDatos (requireContext(), "Euroliga", null, 1);
+        SQLiteDatabase bd = GestorDB.getReadableDatabase();
+
         jornadasRecyclerView = view.findViewById(R.id.jornadas_recycler_view);
-        Partido[] listaPartidos = elListener.cargarPartidosJornada();
+        Cursor c = bd.rawQuery(
+        "SELECT * FROM Partido ", null
+        );
+        // Crear otro objeto modelo (data class para recoger datos de la BBDD)
+        /*
+        EquipoClasificacion[] listaPartidos = new EquipoClasificacion[18];
+        int ind = 0;
+        while (c.moveToNext()) {
+            int posicion = ind + 1;
+            String nombre = c.getString(0);
+            int escudoId = c.getInt(1);
+            int partGanTot = c.getInt(2);
+            int partPerdTot = c.getInt(3);
+            int puntFavor = c.getInt(4);
+            int puntContra = c.getInt(5);
+            int partGanUlt10 = c.getInt(6);
+            int partPerUlt10 = c.getInt(7);
+            listaEquipos[ind] = new EquipoClasificacion(
+                posicion, escudoId, nombre, partGanTot, partPerdTot, puntFavor, puntContra,
+                partGanUlt10, partPerUlt10
+            );
+            ind++;
+        }
+        c.close();
+        */
+        //  Partido[] listaPartidos = elListener.cargarPartidosJornada();
         jornadasRecyclerView.setAdapter(new ListaPartidosAdapter(listaPartidos));
     }
 
