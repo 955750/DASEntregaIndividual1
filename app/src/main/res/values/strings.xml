@@ -17,4 +17,6 @@
     <string name="puntos_favor_header_corto">PTS+</string>
     <string name="puntos_contra_header_corto">PTS-</string>
     <string name="racha_header_corto">U-10</string>
+    <string name="clasificados_a_playoff">Clasificados a Playoff</string>
+    <string name="eliminados">Eliminados</string>
 </resources>
