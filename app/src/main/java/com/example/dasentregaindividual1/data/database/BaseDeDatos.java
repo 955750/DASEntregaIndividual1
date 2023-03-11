@@ -9,7 +9,6 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.example.dasentregaindividual1.R;
-import com.example.dasentregaindividual1.lista_partidos.data_classes.Partido;
 
 import java.util.ArrayList;
 
@@ -71,8 +70,8 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Jugador");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Partido");
         /*sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Favorito");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Estadisticas");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Juega");*/
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Estadisticas");*/
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Juega");
         onCreate(sqLiteDatabase);
     }
 
@@ -106,12 +105,11 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 " 'nombre' TEXT NOT NULL, " +
                 " 'nacionalidad' TEXT, " +
                 " 'altura' FLOAT, " +
-                " 'fecha_nacimiento' DATETIME, " +
+                " 'fecha_nacimiento' TEXT, " +
                 " PRIMARY KEY('numero', 'nombre_equipo'), " +
                 " FOREIGN KEY('nombre_equipo') REFERENCES Equipo('nombre')" +
             ")"
         );
-
 
         // fecha -> 'YYYY-MM-DD'
         // hora -> ADBZ. '22:30+01' (+1 Zona horaria Madrid)
@@ -122,6 +120,20 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 " 'fecha' TEXT NOT NULL, " +
                 " 'hora' TEXT NOT NULL, " +
                 " PRIMARY KEY('id', 'numero_jornada')" +
+            ")"
+        );
+
+        sqLiteDatabase.execSQL(
+            "CREATE TABLE Juega (" +
+                " 'nombre_equipo' TEXT NOT NULL, " +
+                " 'partido_id' INTEGER NOT NULL, " +
+                " 'partido_num_jornada' INTEGER NOT NULL," +
+                " 'puntos' INTEGER NOT NULL, " +
+                " 'local' INTEGER NOT NULL, " +
+                " PRIMARY KEY('nombre_equipo', 'partido_id', 'partido_num_jornada')," +
+                " FOREIGN KEY('nombre_equipo') REFERENCES Equipo('nombre')," +
+                " FOREIGN KEY('partido_id', 'partido_num_jornada')" +
+                " REFERENCES Partido('id', 'numero_jornada')" +
             ")"
         );
     }
@@ -437,7 +449,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         );*/
 
         /* AÑADIR MÁS JORNADAS MÁS ADELANTE */
-        Integer[] jornadas = {27};
+        int[] jornadas = {27};
 
         /* JORNADA 27 */
         String[] fechasJ27 = {"2023-03-07", "2023-03-07", "2023-03-07", "2023-03-07",
@@ -445,9 +457,30 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                               "2023-03-08"};
         String[] horasJ27 = {"20:00", "20:00", "20:30", "20:30", "20:45", "21:00", "18:30",
                              "20:30", "21:00"};
-
+        int[] puntosJ27 = {63, 75, 84, 85,
+                               76, 94, 88, 70,
+                               74, 72, 78, 77,
+                               70, 88, 81, 84,
+                               79, 66};
+        String[] nombresEquipos = {"Alba Berlin", "Anadolu Efes", "AS Monaco", "Baskonia",
+                "Bayern Munich", "Crvena Zvezda", "Emporio Armani Milan", "FC Barcelona",
+                "Fenerbahce", "LDLC Asvel Villeurbane", "Maccabi Tel Aviv", "Olympiacos",
+                "Panathinaikos", "Partizan Belgrade", "Real Madrid", "Valencia Basket",
+                "Virtus Bologna", "Zalgiris Kaunas"
+        };
+        int[] partidosIdJ27 = {2, 8, 9, 5,
+                               6, 8, 4, 1,
+                               7, 6, 7, 1,
+                               9, 3, 5, 4,
+                               3, 2};
+        int[] localJ27 = {1, 0, 1, 0,
+                          1, 1, 0, 0,
+                          0, 0, 1, 1,
+                          0, 0, 1, 1,
+                          1, 0};
         for (Integer jornada : jornadas) {
             añadirJornada(jornada, fechasJ27, horasJ27, sqLiteDatabase);
+            añadirEquiposAJornada(jornada, partidosIdJ27, puntosJ27, localJ27, sqLiteDatabase);
         }
     }
 
@@ -460,11 +493,36 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         // Al ser 18 equipos cada jornada son 9 partidos ( id [0 - 8] )
         for (int i = 0; i <= 8; i++) {
             ContentValues nuevaJornada = new ContentValues();
-            nuevaJornada.put("id", i);
+            nuevaJornada.put("id", i + 1);
             nuevaJornada.put("numero_jornada", numJornada);
             nuevaJornada.put("fecha", fechas[i]);
             nuevaJornada.put("hora", horas[i]);
             sqLiteDatabase.insert("Partido", null, nuevaJornada);
+        }
+    }
+
+    private void añadirEquiposAJornada(
+        int numJornada,
+        int[] jornadaIds,
+        int[] puntosJornada,
+        int[] localJornada,
+        SQLiteDatabase sqLiteDatabase
+    ) {
+        String[] nombresEquipos = {"Alba Berlin", "Anadolu Efes", "AS Monaco", "Baskonia",
+                "Bayern Munich", "Crvena Zvezda", "Emporio Armani Milan", "FC Barcelona",
+                "Fenerbahce", "LDLC Asvel Villeurbane", "Maccabi Tel Aviv", "Olympiacos",
+                "Panathinaikos", "Partizan Belgrade", "Real Madrid", "Valencia Basket",
+                "Virtus Bologna", "Zalgiris Kaunas"
+        };
+
+        for (int i = 0; i < nombresEquipos.length; i++) {
+            ContentValues nuevoEquipoJornada = new ContentValues();
+            nuevoEquipoJornada.put("nombre_equipo", nombresEquipos[i]);
+            nuevoEquipoJornada.put("partido_id", jornadaIds[i]);
+            nuevoEquipoJornada.put("partido_num_jornada", numJornada);
+            nuevoEquipoJornada.put("puntos", puntosJornada[i]);
+            nuevoEquipoJornada.put("local", localJornada[i]);
+            sqLiteDatabase.insert("Juega", null, nuevoEquipoJornada);
         }
     }
 }

@@ -43,7 +43,7 @@
             android:textSize="40sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:background="@color/teal_700"/>
+            android:background="@color/turquesa"/>
 
         <ImageView
             android:id="@+id/escudo_equipo_visitante"
@@ -106,7 +106,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/teal_700"
+                android:background="@color/turquesa"
                 app:layout_constraintStart_toEndOf="@id/puntos_equipo_local_cuarto_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cuarto_1_header"
@@ -157,7 +157,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/teal_700"
+                android:background="@color/turquesa"
                 app:layout_constraintStart_toEndOf="@id/puntos_equipo_local_cuarto_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cuarto_2_header"
@@ -208,7 +208,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/teal_700"
+                android:background="@color/turquesa"
                 app:layout_constraintStart_toEndOf="@id/puntos_equipo_local_cuarto_3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cuarto_3_header"
@@ -259,7 +259,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/teal_700"
+                android:background="@color/turquesa"
                 app:layout_constraintStart_toEndOf="@id/puntos_equipo_local_cuarto_4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cuarto_4_header"

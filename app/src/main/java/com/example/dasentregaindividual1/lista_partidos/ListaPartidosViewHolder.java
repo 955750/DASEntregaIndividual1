@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dasentregaindividual1.R;
+import com.google.android.material.card.MaterialCardView;
 
 public class ListaPartidosViewHolder extends RecyclerView.ViewHolder {
 
@@ -23,6 +24,7 @@ public class ListaPartidosViewHolder extends RecyclerView.ViewHolder {
     public TextView puntosEquipoVisitanteTV;
     public TextView fechaPartidoTV;
     public TextView horaPartidoTV;
+    public MaterialCardView cardPartido;
     public boolean[] seleccion;
 
     public ListaPartidosViewHolder(@NonNull View itemView) {
@@ -41,13 +43,12 @@ public class ListaPartidosViewHolder extends RecyclerView.ViewHolder {
 
         fechaPartidoTV = itemView.findViewById(R.id.fecha_partido);
         horaPartidoTV = itemView.findViewById(R.id.hora_partido);
+        cardPartido = itemView.findViewById(R.id.card_partido);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!seleccion[getAdapterPosition()]){
-                    /*Navigation.findNavController(view)
-                            .navigate(R.id.action_listaPartidosFragment_to_detallePartidoFragment);*/
                     int puntosLocal = Integer.parseInt(puntosEquipoLocalTV.getText().toString());
                     int puntosVisitante = Integer.parseInt(puntosEquipoVisitanteTV.getText()
                             .toString());

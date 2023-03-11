@@ -45,7 +45,7 @@
                 tools:text="1"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/blanco"
                 android:gravity="center"
                 android:layout_gravity="center"/>
 
@@ -78,7 +78,7 @@
                 tools:text="Partizan Belgrade"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"/>
+                android:textColor="@color/blanco"/>
 
             <TextView
                 android:id="@+id/partidos_ganados_totales"
@@ -90,7 +90,7 @@
                 tools:text="14"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/blanco"
                 android:gravity="center"/>
 
             <TextView
@@ -103,7 +103,7 @@
                 tools:text="12"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/blanco"
                 android:gravity="center"/>
 
             <TextView
@@ -116,7 +116,7 @@
                 tools:text="2015"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/blanco"
                 android:gravity="center"/>
 
             <TextView
@@ -129,7 +129,7 @@
                 tools:text="1987"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/blanco"
                 android:gravity="center"/>
 
             <TextView
@@ -143,7 +143,7 @@
                 tools:text="3-7"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/blanco"
                 android:gravity="center"/>
 
         </LinearLayout>

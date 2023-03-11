@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dasentregaindividual1.data.database.BaseDeDatos;
 import com.example.dasentregaindividual1.lista_partidos.ListaPartidosFragment;
-import com.example.dasentregaindividual1.lista_partidos.data_classes.EquipoPartido;
-import com.example.dasentregaindividual1.lista_partidos.data_classes.Partido;
+import com.example.dasentregaindividual1.data.database.modelos.EquipoPartido;
+import com.example.dasentregaindividual1.data.database.modelos.Partido;
 
 public class MainActivity extends AppCompatActivity
         implements ListaPartidosFragment.ListenerDelFragment {
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity
         SQLiteDatabase bd = gestorDB.getReadableDatabase();
 
         // Crear equipos (la racha hay que cambiarla a últimos 10 partidos)
-        EquipoPartido olympiacos = new EquipoPartido(
+        /*EquipoPartido olympiacos = new EquipoPartido(
                 R.drawable.escudo_olympiacos,
                 "Olympiacos",
                 getString(R.string.racha_ultimos_partidos, 18, 7),
@@ -132,10 +132,10 @@ public class MainActivity extends AppCompatActivity
                 "Alba Berlin",
                 getString(R.string.racha_ultimos_partidos, 7, 18),
                 87
-        );
+        );*/
 
         // Crear partidos (son los de la última jornada [JORNADA 25])
-        Partido p1 = new Partido(maccabiTelAviv, bayernMunich, "23/02/2023", "20:05");
+       /* Partido p1 = new Partido(maccabiTelAviv, bayernMunich, "23/02/2023", "20:05");
         Partido p2 = new Partido(emporioArmaniMilan, panathinaikos, "23/02/2023", "20:30");
         Partido p3 = new Partido(realMadrid, zalgirisKaunas, "23/02/2023", "20:45");
         Partido p4 = new Partido(partizanBelgrade, fenerbahce, "23/02/2023", "21:00");
@@ -143,10 +143,10 @@ public class MainActivity extends AppCompatActivity
         Partido p6 = new Partido(ldlcAsvelVilleurbane, anadoluEfes, "24/02/2023", "20:00");
         Partido p7 = new Partido(virtusBologna, baskonia, "24/02/2023", "20:30");
         Partido p8 = new Partido(valenciaBasket, olympiacos, "24/02/2023", "20:30");
-        Partido p9 = new Partido(fcBarcelona, asMonaco, "24/02/2023", "20:45");
+        Partido p9 = new Partido(fcBarcelona, asMonaco, "24/02/2023", "20:45");*/
 
         // Guardar partidos
-        partidosJornada = new Partido[]{p1, p2, p3, p4, p5, p6, p7, p8, p9};
+        // partidosJornada = new Partido[]{p1, p2, p3, p4, p5, p6, p7, p8, p9};
     }
 
     @Override

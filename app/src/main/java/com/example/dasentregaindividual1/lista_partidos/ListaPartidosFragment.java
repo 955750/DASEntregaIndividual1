@@ -17,7 +17,8 @@ import android.view.ViewGroup;
 
 import com.example.dasentregaindividual1.R;
 import com.example.dasentregaindividual1.data.database.BaseDeDatos;
-import com.example.dasentregaindividual1.lista_partidos.data_classes.Partido;
+import com.example.dasentregaindividual1.data.database.modelos.EquipoPartido;
+import com.example.dasentregaindividual1.data.database.modelos.Partido;
 
 public class ListaPartidosFragment extends Fragment {
 
@@ -59,32 +60,63 @@ public class ListaPartidosFragment extends Fragment {
         SQLiteDatabase bd = GestorDB.getReadableDatabase();
 
         jornadasRecyclerView = view.findViewById(R.id.jornadas_recycler_view);
-        Cursor c = bd.rawQuery(
-        "SELECT * FROM Partido ", null
+
+        Cursor cPartido = bd.rawQuery(
+        "SELECT * FROM Partido", null
         );
-        // Crear otro objeto modelo (data class para recoger datos de la BBDD)
-        /*
-        EquipoClasificacion[] listaPartidos = new EquipoClasificacion[18];
-        int ind = 0;
-        while (c.moveToNext()) {
-            int posicion = ind + 1;
-            String nombre = c.getString(0);
-            int escudoId = c.getInt(1);
-            int partGanTot = c.getInt(2);
-            int partPerdTot = c.getInt(3);
-            int puntFavor = c.getInt(4);
-            int puntContra = c.getInt(5);
-            int partGanUlt10 = c.getInt(6);
-            int partPerUlt10 = c.getInt(7);
-            listaEquipos[ind] = new EquipoClasificacion(
-                posicion, escudoId, nombre, partGanTot, partPerdTot, puntFavor, puntContra,
-                partGanUlt10, partPerUlt10
-            );
-            ind++;
+        Partido[] listaPartidos = new Partido[9];
+        int j = 0;
+        while (cPartido.moveToNext()) {
+            // Extraer datos de tabla 'Partido'
+            Integer partidoId = cPartido.getInt(0);
+            Integer numJornada = cPartido.getInt(1); // De momento no se usa
+            String fecha = cPartido.getString(2);
+            String hora = cPartido.getString(3);
+
+            /*
+            SELECT j.puntos, j.partido_id, j.local, e.nombre, e.escudo_id, e.part_ganados_ult_10, e.part_perdidos_ult_10
+            FROM Juega AS j INNER JOIN Equipo AS e ON j.nombre_equipo = e.nombre
+            WHERE j.partido_id = 2
+            */
+
+            // Extraer datos equipos partidos
+            String[] campos = new String[] {"j.puntos", "j.partido_id", "j.local", "e.nombre",
+                    "e.escudo_id", "e.part_ganados_ult_10", "e.part_perdidos_ult_10"};
+            String[] argumentos = new String[] {partidoId.toString()};
+            String table = "Juega AS j INNER JOIN Equipo AS e ON j.nombre_equipo = e.nombre";
+            Cursor cEquipoPartido = bd.query(table, campos, "partido_id = ?",
+                    argumentos, null, null, null);
+
+            EquipoPartido[] equiposPartido = new EquipoPartido[2];
+            // int i = 0;
+            while (cEquipoPartido.moveToNext()) {
+                int puntos = cEquipoPartido.getInt(0);
+                int local = cEquipoPartido.getInt(2);
+                String nombre = cEquipoPartido.getString(3);
+                int escudoId = cEquipoPartido.getInt(4);
+                int partGanUlt10 = cEquipoPartido.getInt(5);
+                int partPerUlt10 = cEquipoPartido.getInt(6);
+                EquipoPartido eq = new EquipoPartido(
+                    escudoId,
+                    nombre,
+                    getString(R.string.racha_ultimos_partidos, partGanUlt10, partPerUlt10),
+                    puntos,
+                    local
+                );
+                if (local == 1) {
+                    equiposPartido[0] = eq;
+                } else {
+                    equiposPartido[1] = eq;
+                }
+                // i++;
+            }
+            cEquipoPartido.close();
+
+            listaPartidos[j] = new Partido(equiposPartido, fecha, hora);
+            j++;
         }
-        c.close();
-        */
-        //  Partido[] listaPartidos = elListener.cargarPartidosJornada();
+        cPartido.close();
+
         jornadasRecyclerView.setAdapter(new ListaPartidosAdapter(listaPartidos));
     }
 
