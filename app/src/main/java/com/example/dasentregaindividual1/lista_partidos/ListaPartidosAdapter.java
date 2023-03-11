@@ -1,7 +1,6 @@
 package com.example.dasentregaindividual1.lista_partidos;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dasentregaindividual1.R;
-import com.example.dasentregaindividual1.data.database.modelos.EquipoPartido;
-import com.example.dasentregaindividual1.data.database.modelos.Partido;
+import com.example.dasentregaindividual1.data.base_de_datos.modelos.EquipoPartido;
+import com.example.dasentregaindividual1.data.base_de_datos.modelos.Partido;
 
 public class ListaPartidosAdapter extends RecyclerView.Adapter<ListaPartidosViewHolder> {
 

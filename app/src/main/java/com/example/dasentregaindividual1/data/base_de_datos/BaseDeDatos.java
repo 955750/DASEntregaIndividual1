@@ -1,4 +1,4 @@
-package com.example.dasentregaindividual1.data.database;
+package com.example.dasentregaindividual1.data.base_de_datos;
 
 import android.content.ContentValues;
 import android.content.Context;

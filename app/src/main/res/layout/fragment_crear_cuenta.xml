@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="40dp"
     tools:background="@drawable/fondo_apk_euroliga"
-    tools:context=".login.LoginFragment">
+    tools:context=".crear_cuenta.CrearCuentaFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             app:startIconDrawable="@drawable/ic_usuario_24dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/campo_usuario"
+                android:id="@+id/campo_usuario_crear_cuenta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="julen_fuentes"/>
@@ -52,7 +52,7 @@
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/campo_contraseña"
+                android:id="@+id/campo_contraseña_crear_cuenta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -60,12 +60,24 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/boton_iniciar_sesion"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/campo_repetir_contraseña_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@string/iniciar_sesion" />
+            android:hint="@string/hint_campo_repetir_contraseña"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_contrasena_24dp"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/campo_repetir_contraseña_crear_cuenta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:text="patata123"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/boton_crear_cuenta"

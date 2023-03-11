@@ -1,4 +1,4 @@
-package com.example.dasentregaindividual1.data.database.modelos;
+package com.example.dasentregaindividual1.data.base_de_datos.modelos;
 
 public class EquipoClasificacion {
 

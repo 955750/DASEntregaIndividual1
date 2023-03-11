@@ -5,10 +5,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.dasentregaindividual1.data.database.BaseDeDatos;
+import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
 import com.example.dasentregaindividual1.lista_partidos.ListaPartidosFragment;
-import com.example.dasentregaindividual1.data.database.modelos.EquipoPartido;
-import com.example.dasentregaindividual1.data.database.modelos.Partido;
+import com.example.dasentregaindividual1.data.base_de_datos.modelos.Partido;
 
 public class MainActivity extends AppCompatActivity
         implements ListaPartidosFragment.ListenerDelFragment {

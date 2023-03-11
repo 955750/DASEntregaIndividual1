@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dasentregaindividual1.R;
-import com.example.dasentregaindividual1.data.database.modelos.EquipoClasificacion;
+import com.example.dasentregaindividual1.data.base_de_datos.modelos.EquipoClasificacion;
 
 public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionViewHolder> {
 

@@ -46,10 +46,22 @@
         <action
             android:id="@+id/action_loginFragment_to_menuPrincipalFragment"
             app:destination="@id/menuPrincipalFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_crearCuentaFragment"
+            app:destination="@id/crearCuentaFragment" />
     </fragment>
     <fragment
         android:id="@+id/clasificacionFragment"
         android:name="com.example.dasentregaindividual1.clasificacion.ClasificacionFragment"
         android:label="fragment_clasificacion"
         tools:layout="@layout/fragment_clasificacion" />
+    <fragment
+        android:id="@+id/crearCuentaFragment"
+        android:name="com.example.dasentregaindividual1.crear_cuenta.CrearCuentaFragment"
+        android:label="fragment_crear_cuenta"
+        tools:layout="@layout/fragment_crear_cuenta" >
+        <action
+            android:id="@+id/action_crearCuentaFragment_to_menuPrincipalFragment"
+            app:destination="@id/menuPrincipalFragment" />
+    </fragment>
 </navigation>

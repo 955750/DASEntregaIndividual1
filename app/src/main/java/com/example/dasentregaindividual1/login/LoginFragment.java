@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,7 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import com.example.dasentregaindividual1.R;
-import com.example.dasentregaindividual1.data.database.BaseDeDatos;
+import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -31,6 +30,7 @@ public class LoginFragment extends Fragment {
     private TextInputLayout campoContraseñaLayout;
     private TextInputEditText campoContraseñaEditText;
     private Button botonIniciarSesion;
+    private Button botonCrearCuenta;
 
     /* Otros atributos */
     private String usuario;
@@ -105,6 +105,16 @@ public class LoginFragment extends Fragment {
                 }
                 c.close();
                 // baseDeDatos.close();
+            }
+        });
+
+        botonCrearCuenta = view.findViewById(R.id.boton_crear_cuenta);
+        botonCrearCuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavDirections accion = LoginFragmentDirections
+                        .actionLoginFragmentToCrearCuentaFragment();
+                Navigation.findNavController(view).navigate(accion);
             }
         });
     }

@@ -15,8 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dasentregaindividual1.R;
-import com.example.dasentregaindividual1.data.database.modelos.EquipoClasificacion;
-import com.example.dasentregaindividual1.data.database.BaseDeDatos;
+import com.example.dasentregaindividual1.data.base_de_datos.modelos.EquipoClasificacion;
+import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
 
 public class ClasificacionFragment extends Fragment {
 

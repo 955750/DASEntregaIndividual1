@@ -19,4 +19,12 @@
     <string name="racha_header_corto">U-10</string>
     <string name="clasificados_a_playoff">Clasificados a Playoff</string>
     <string name="eliminados">Eliminados</string>
+    <string name="hint_campo_repetir_contraseña">Vuelve a introducir tu contraseña</string>
+    <string name="crear_cuenta">Crear cuenta</string>
+    <string name="toast_minimo_8_caracteres">La contraseña de contener al menos 8 caracteres</string>
+    <string name="toast_formato_contraseña_invalido">El formato de la contraseña no es válido</string>
+    <string name="toast_cuenta_creada_con_exito">La cuenta ha sido creada con éxito</string>
+    <string name="toast_contraseñas_no_coinciden">Las contraseñas no coinciden</string>
+    <string name="toast_campo_vacio">El campo de \'%s\' está vacío</string>
+    <string name="toast_nombre_usuario_existente">El nombre de usuario ya existe</string>
 </resources>
