@@ -27,4 +27,6 @@
     <string name="toast_contraseñas_no_coinciden">Las contraseñas no coinciden</string>
     <string name="toast_campo_vacio">El campo de \'%s\' está vacío</string>
     <string name="toast_nombre_usuario_existente">El nombre de usuario ya existe</string>
+    <string name="toast_usuario_contraseña_incorrectos">Usuario y/o contraseñas INCORRECTOS</string>
+    <string name="toast_usuario_contraseña_correctos">Usuario y/o contraseñas CORRECTOS</string>
 </resources>

@@ -19,31 +19,29 @@ import androidx.navigation.Navigation;
 import com.example.dasentregaindividual1.R;
 import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 
 public class LoginFragment extends Fragment {
 
     /* Atributos de la interfaz gráfica */
-    private TextInputLayout campoUsuarioLayout;
-    private TextInputEditText campoUsuarioEditText;
-    private TextInputLayout campoContraseñaLayout;
-    private TextInputEditText campoContraseñaEditText;
+    private TextInputEditText usuarioTV;
+    private TextInputEditText contraseñaTV;
     private Button botonIniciarSesion;
     private Button botonCrearCuenta;
 
     /* Otros atributos */
-    private String usuario;
-    private String contraseña;
     private SQLiteDatabase baseDeDatos;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("LoginFragment", "onCreate");
+        
         // Recuperar instancia de la base de datos
-        BaseDeDatos GestorDB = new BaseDeDatos (requireContext(), "Euroliga", null, 1);
-        baseDeDatos = GestorDB.getReadableDatabase();
+        BaseDeDatos gestorBD = new BaseDeDatos (requireContext(), "Euroliga", 
+                null, 1);
+        baseDeDatos = gestorBD.getReadableDatabase();
     }
 
     @Override
@@ -60,51 +58,14 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("LoginFragment", "onViewCreated");
-
-        campoUsuarioLayout = view.findViewById(R.id.campo_usuario_layout);
-        campoUsuarioEditText = view.findViewById(R.id.campo_usuario);
-
-        campoContraseñaLayout = view.findViewById(R.id.campo_contraseña_layout);
-        campoContraseñaEditText = view.findViewById(R.id.campo_contraseña);
-
+        
+        usuarioTV = view.findViewById(R.id.campo_usuario);
+        contraseñaTV = view.findViewById(R.id.campo_contraseña);
         botonIniciarSesion = view.findViewById(R.id.boton_iniciar_sesion);
         botonIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (campoUsuarioEditText.getText() != null)
-                    usuario = campoUsuarioEditText.getText().toString();
-                if (campoContraseñaEditText.getText() != null)
-                    contraseña = campoContraseñaEditText.getText().toString();
-                Log.d("LoginFragment", "Usuario: " + usuario);
-                Log.d("LoginFragment", "Contraseña: " + contraseña);
-                String consulta = String.format(
-                        "SELECT COUNT(*) FROM Usuario " +
-                        "WHERE nombre_usuario = '%1$s' AND " +
-                        "contraseña = '%2$s'",
-                        usuario, contraseña
-                );
-                Cursor c = baseDeDatos.rawQuery(consulta, null);
-                while (c.moveToNext()) {
-                    int cantidad = c.getInt(0);
-                    if (cantidad == 1) {
-                        Toast.makeText(
-                                requireContext(),
-                                "Usuario y contraseñas CORRECTOS",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                        NavDirections accion = LoginFragmentDirections
-                                .actionLoginFragmentToMenuPrincipalFragment();
-                        Navigation.findNavController(view).navigate(accion);
-                    } else {
-                        Toast.makeText(
-                                requireContext(),
-                                "Usuario y contraseñas INCORRECTOS",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    }
-                }
-                c.close();
-                // baseDeDatos.close();
+                hacerLogin(view);
             }
         });
 
@@ -112,10 +73,86 @@ public class LoginFragment extends Fragment {
         botonCrearCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavDirections accion = LoginFragmentDirections
-                        .actionLoginFragmentToCrearCuentaFragment();
-                Navigation.findNavController(view).navigate(accion);
+                navegarHaciaCrearCuenta(view);
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("LoginFragment", "onDestroy");
+        baseDeDatos.close();
+    }
+    
+    private void hacerLogin(View view) {
+        if (camposValidos()) {
+            // FALTARÍA ACTUALIZAR PREFERENCIAS
+            navegarHaciaMenuPrincipal(view);
+        }
+    }
+    
+    private boolean camposValidos() {
+        if (usuarioTV.getText().toString().equals("")) {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.toast_campo_vacio, "Usuario"),
+                Toast.LENGTH_SHORT)
+            .show();
+            return false;
+        } else if (contraseñaTV.getText().toString().equals("")) {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.toast_campo_vacio, "Contraseña"),
+                Toast.LENGTH_SHORT)
+            .show();
+            return false;
+        } else if (!usuarioCorrecto(
+            usuarioTV.getText().toString(),
+            contraseñaTV.getText().toString()
+        )) {
+            Toast.makeText(
+                    requireContext(),
+                    getString(R.string.toast_usuario_contraseña_incorrectos),
+                    Toast.LENGTH_SHORT
+            ).show();
+            return false;
+        } else {
+            Toast.makeText(
+                    requireContext(),
+                    getString(R.string.toast_usuario_contraseña_correctos),
+                    Toast.LENGTH_SHORT
+            ).show();
+            return true;
+        }
+    }
+
+    private boolean usuarioCorrecto(String pUsuario, String pContraseña) {
+        /*
+        SELECT COUNT(*) FROM Usuario
+        WHERE nombre_usuario = ? AND
+        contraseña = ?
+        */
+        String[] campos = new String[]{"COUNT(*)"};
+        String[] argumentos = new String[]{pUsuario, pContraseña};
+        Cursor cUsuario = baseDeDatos.query("Usuario", campos,
+                "nombre_usuario = ? AND contraseña = ?",
+                argumentos, null, null, null);
+
+        cUsuario.moveToFirst();
+        int cantidadUsuarios = cUsuario.getInt(0);
+        cUsuario.close();
+        return cantidadUsuarios == 1;
+    }
+
+    private void navegarHaciaMenuPrincipal(View view) {
+        NavDirections accion = LoginFragmentDirections
+                .actionLoginFragmentToMenuPrincipalFragment();
+        Navigation.findNavController(view).navigate(accion);
+    }
+    private void navegarHaciaCrearCuenta(View view) {
+        NavDirections accion = LoginFragmentDirections
+                .actionLoginFragmentToCrearCuentaFragment();
+        Navigation.findNavController(view).navigate(accion);
     }
 }

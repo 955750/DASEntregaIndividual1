@@ -2,7 +2,6 @@ package com.example.dasentregaindividual1.crear_cuenta;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -17,15 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dasentregaindividual1.R;
 import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
-import com.example.dasentregaindividual1.login.LoginFragmentDirections;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CrearCuentaFragment extends Fragment {
@@ -37,15 +33,17 @@ public class CrearCuentaFragment extends Fragment {
     private Button crearCuenta;
 
     /* Otros atributos */
-    private SQLiteDatabase bd;
+    private SQLiteDatabase baseDeDatos;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("CrearCuentaFragment", "onCreate");
+
+        // Recuperar instancia de la base de datos
         BaseDeDatos gestorBD = new BaseDeDatos(requireContext(), "Euroliga",
                 null, 1);
-        bd = gestorBD.getWritableDatabase();
+        baseDeDatos = gestorBD.getWritableDatabase();
     }
 
     @Override
@@ -70,7 +68,7 @@ public class CrearCuentaFragment extends Fragment {
         crearCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                crearUsuario(view);
+                crearUsuarioYHacerLogin(view);
             }
         });
     }
@@ -79,15 +77,13 @@ public class CrearCuentaFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.d("CrearCuentaFragment", "onDestroy");
-        bd.close();
+        baseDeDatos.close();
     }
 
-    private void crearUsuario(View view) {
+    private void crearUsuarioYHacerLogin(View view) {
         if (camposValidos()) {
             crearCuenta();
-            NavDirections accion = CrearCuentaFragmentDirections
-                    .actionCrearCuentaFragmentToMenuPrincipalFragment();
-            Navigation.findNavController(view).navigate(accion);
+            navegarHaciaMenuPrincipal(view);
         }
     }
 
@@ -95,21 +91,21 @@ public class CrearCuentaFragment extends Fragment {
         if (usuarioTV.getText().toString().equals("")) {
             Toast.makeText(
                 requireContext(),
-            getString(R.string.toast_campo_vacio, "usuario"),
+            getString(R.string.toast_campo_vacio, "Usuario"),
                 Toast.LENGTH_SHORT)
             .show();
             return false;
         } else if (contraseñaTV.getText().toString().equals("")) {
             Toast.makeText(
                 requireContext(),
-                getString(R.string.toast_campo_vacio, "contraseña"),
+                getString(R.string.toast_campo_vacio, "Contraseña"),
                 Toast.LENGTH_SHORT)
             .show();
             return false;
         } else if (repetirContraseñaTV.getText().toString().equals("")) {
             Toast.makeText(
                 requireContext(),
-                getString(R.string.toast_campo_vacio, "repetir contraseña"),
+                getString(R.string.toast_campo_vacio, "Repetir Contraseña"),
                 Toast.LENGTH_SHORT)
             .show();
             return false;
@@ -145,11 +141,11 @@ public class CrearCuentaFragment extends Fragment {
     private boolean usuarioValido(String pUsuario) {
         /*
         SELECT COUNT(*) FROM Usuario
-        WHERE nombre_usuario = 'julen_fuentes'
+        WHERE nombre_usuario = ?
          */
         String[] campos = new String[] {"COUNT(*)"};
         String[] argumentos = new String[] {pUsuario};
-        Cursor cUsuario = bd.query("Usuario", campos, "nombre_usuario = ?",
+        Cursor cUsuario = baseDeDatos.query("Usuario", campos, "nombre_usuario = ?",
                 argumentos, null, null, null);
 
         cUsuario.moveToFirst();
@@ -206,5 +202,11 @@ public class CrearCuentaFragment extends Fragment {
         nuevoUsuario.put("contraseña", contraseñaTV.getText().toString());
         bd.insert("Usuario", null, nuevoUsuario);
         bd.close();
+    }
+
+    private void navegarHaciaMenuPrincipal(View view) {
+        NavDirections accion = CrearCuentaFragmentDirections
+                .actionCrearCuentaFragmentToMenuPrincipalFragment();
+        Navigation.findNavController(view).navigate(accion);
     }
 }
