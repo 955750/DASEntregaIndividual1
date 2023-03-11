@@ -188,7 +188,7 @@
             android:id="@+id/clasifiacion_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="85"
+            android:layout_weight="80"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/clasificacion_item"/>
@@ -196,7 +196,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_weight="15"
             android:layout_marginTop="10dp"
             android:background="@color/blanco"
             app:cardCornerRadius="8dp">
@@ -213,15 +213,14 @@
                     android:layout_weight="50">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center">
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/color_playoff"
-                            android:layout_width="10dp"
+                            android:layout_width="20dp"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
                             app:strokeColor="@color/naranja_vivo"
                             app:strokeWidth="2dp"
                             app:cardBackgroundColor="@color/naranja_oscuro"
@@ -230,16 +229,16 @@
                             app:layout_constraintBottom_toBottomOf="parent"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
+                            android:layout_marginStart="30dp"
                             android:text="@string/clasificados_a_playoff"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:gravity="center_vertical"
                             app:layout_constraintStart_toEndOf="@id/color_playoff"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintBottom_toBottomOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>
@@ -251,15 +250,14 @@
                     android:layout_weight="50">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center">
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/color_eliminados"
-                            android:layout_width="10dp"
+                            android:layout_width="20dp"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
                             app:strokeColor="@color/naranja_menos_vivo"
                             app:strokeWidth="2dp"
                             app:cardBackgroundColor="@color/naranja_claro"
@@ -268,9 +266,9 @@
                             app:layout_constraintBottom_toBottomOf="parent"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
+                            android:layout_marginStart="30dp"
                             android:text="@string/eliminados"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -281,7 +279,6 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

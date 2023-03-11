@@ -43,7 +43,7 @@
             android:textSize="40sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:background="@color/turquesa"/>
+            android:background="@color/turquesa_oscuro"/>
 
         <ImageView
             android:id="@+id/escudo_equipo_visitante"
@@ -79,7 +79,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/teal_200"
+                android:background="@color/turquesa_claro"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -106,7 +106,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/turquesa"
+                android:background="@color/turquesa_oscuro"
                 app:layout_constraintStart_toEndOf="@id/puntos_equipo_local_cuarto_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cuarto_1_header"
@@ -130,7 +130,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/teal_200"
+                android:background="@color/turquesa_claro"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -157,7 +157,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/turquesa"
+                android:background="@color/turquesa_oscuro"
                 app:layout_constraintStart_toEndOf="@id/puntos_equipo_local_cuarto_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cuarto_2_header"
@@ -181,7 +181,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/teal_200"
+                android:background="@color/turquesa_claro"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -208,7 +208,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/turquesa"
+                android:background="@color/turquesa_oscuro"
                 app:layout_constraintStart_toEndOf="@id/puntos_equipo_local_cuarto_3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cuarto_3_header"
@@ -232,7 +232,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/teal_200"
+                android:background="@color/turquesa_claro"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -259,7 +259,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:background="@color/turquesa"
+                android:background="@color/turquesa_oscuro"
                 app:layout_constraintStart_toEndOf="@id/puntos_equipo_local_cuarto_4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cuarto_4_header"

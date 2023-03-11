@@ -94,6 +94,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
+                    <!--
+                    android:textColor="@color/turquesa"
+                    android:gravity="center"
+                    android:background="@color/azul_claro"
+                     -->
                     <TextView
                         android:id="@+id/puntos_equipo_local"
                         android:layout_width="45dp"
@@ -101,9 +106,9 @@
                         tools:text="33"
                         android:textSize="22sp"
                         android:textStyle="bold"
-                        android:textColor="@color/turquesa"
+                        android:textColor="@color/turquesa_oscuro"
+                        android:background="@color/turquesa_claro"
                         android:gravity="center"
-                        android:background="@color/azul_claro"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,9 +119,9 @@
                         tools:text="105"
                         android:textSize="22sp"
                         android:textStyle="bold"
-                        android:textColor="@color/azul_claro"
+                        android:textColor="@color/turquesa_claro"
                         android:gravity="center"
-                        android:background="@color/turquesa"
+                        android:background="@color/turquesa_oscuro"
                         app:layout_constraintStart_toEndOf="@id/puntos_equipo_local"
                         app:layout_constraintTop_toTopOf="parent" />
 
