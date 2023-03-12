@@ -33,15 +33,6 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         añadirPartidos(sqLiteDatabase);
         /*
 
-        PRIMARY KEY (id)"
-
-        sqLiteDatabase.execSQL(
-            "CREATE TABLE Favorito (" +
-                " 'usuario_id' INTEGER PRIMARY KEY NOT NULL, " +
-                " 'equipo_id' INTEGER PRIMARY KEY NOT NULL" +
-            ")"
-        );
-
         sqLiteDatabase.execSQL(
             "CREATE TABLE Estadisticas (" +
                 " 'numero_jugador' INTEGER PRIMARY KEY NOT NULL, " +
@@ -69,8 +60,8 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Equipo");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Jugador");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Partido");
-        /*sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Favorito");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Estadisticas");*/
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Favorito");
+        /*sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Estadisticas");*/
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Juega");
         onCreate(sqLiteDatabase);
     }
@@ -111,8 +102,6 @@ public class BaseDeDatos extends SQLiteOpenHelper {
             ")"
         );
 
-        // fecha -> 'YYYY-MM-DD'
-        // hora -> ADBZ. '22:30+01' (+1 Zona horaria Madrid)
         sqLiteDatabase.execSQL(
             "CREATE TABLE Partido (" +
                 " 'id' INTEGER NOT NULL, " +
@@ -134,6 +123,16 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 " FOREIGN KEY('nombre_equipo') REFERENCES Equipo('nombre')," +
                 " FOREIGN KEY('partido_id', 'partido_num_jornada')" +
                 " REFERENCES Partido('id', 'numero_jornada')" +
+            ")"
+        );
+
+        sqLiteDatabase.execSQL(
+            "CREATE TABLE Favorito (" +
+                " 'nombre_usuario' TEXT NOT NULL, " +
+                " 'nombre_equipo' TEXT NOT NULL, " +
+                " PRIMARY KEY('nombre_usuario', 'nombre_equipo'), " +
+                " FOREIGN KEY('nombre_usuario') REFERENCES Usuario('nombre_usuario'), " +
+                " FOREIGN KEY('nombre_equipo') REFERENCES Equipo('nombre')" +
             ")"
         );
     }
