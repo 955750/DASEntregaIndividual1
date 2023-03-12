@@ -20,12 +20,14 @@ public class MenuPrincipalFragment extends Fragment {
 
     private Button botonJornadas;
     private Button botonClasificacion;
+    private Button botonAjustes;
+    private Button botonCerrarSesion;
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState
+        LayoutInflater inflater,
+        ViewGroup container,
+        Bundle savedInstanceState
     ) {
         Log.d("MenuPrincipalFragment", "onCreateView");
         return inflater.inflate(R.layout.fragment_menu_principal, container, false);
@@ -36,24 +38,54 @@ public class MenuPrincipalFragment extends Fragment {
         Log.d("MenuPrincipalFragment", "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
 
-        botonJornadas = (Button) view.findViewById(R.id.boton_jornadas);
+        botonJornadas = view.findViewById(R.id.boton_jornadas);
         botonJornadas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavDirections accion = MenuPrincipalFragmentDirections
-                    .actionMenuPrincipalFragmentToListaPartidosFragment();
-                Navigation.findNavController(view).navigate(accion);
+                navegarHaciaJornadas(view);
             }
         });
 
-        botonClasificacion = (Button) view.findViewById(R.id.boton_clasificacion);
+        botonClasificacion = view.findViewById(R.id.boton_clasificacion);
         botonClasificacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavDirections accion = MenuPrincipalFragmentDirections
-                    .actionMenuPrincipalFragmentToClasificacionFragment();
-                Navigation.findNavController(view).navigate(accion);
+                navegarHaciaClasificacion(view);
             }
         });
+
+        botonAjustes = view.findViewById(R.id.boton_ajustes);
+        botonAjustes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navegarHaciaAjustes(view);
+            }
+        });
+
+        botonCerrarSesion = view.findViewById(R.id.cerrar_sesion);
+        botonCerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DIALOGO CERRAR SESIÓN
+            }
+        });
+    }
+
+    private void navegarHaciaJornadas(View view) {
+        NavDirections accion = MenuPrincipalFragmentDirections
+            .actionMenuPrincipalFragmentToListaPartidosFragment();
+        Navigation.findNavController(view).navigate(accion);
+    }
+
+    private void navegarHaciaClasificacion(View view) {
+        NavDirections accion = MenuPrincipalFragmentDirections
+            .actionMenuPrincipalFragmentToClasificacionFragment();
+        Navigation.findNavController(view).navigate(accion);
+    }
+
+    private void navegarHaciaAjustes(View view) {
+        NavDirections accion = MenuPrincipalFragmentDirections
+            .actionMenuPrincipalFragmentToAjustesFragment();
+        Navigation.findNavController(view).navigate(accion);
     }
 }

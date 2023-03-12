@@ -29,4 +29,14 @@
     <string name="toast_nombre_usuario_existente">El nombre de usuario ya existe</string>
     <string name="toast_usuario_contraseña_incorrectos">Usuario y/o contraseñas INCORRECTOS</string>
     <string name="toast_usuario_contraseña_correctos">Usuario y/o contraseñas CORRECTOS</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+
+    <string-array name="idiomas_disponibles">
+        <item>Euskara</item>
+        <item>Castellano</item>
+        <item>Inglés</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

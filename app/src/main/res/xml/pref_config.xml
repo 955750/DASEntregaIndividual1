@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="cat_ajustes"
+        app:title="Ajustes">
+
+        <SwitchPreferenceCompat
+            app:key="switch_modo_oscuro"
+            app:title="Activar modo oscuro" />
+
+        <ListPreference
+            app:key="lista_idioma"
+            app:title="Cambiar idioma"
+            app:dialogTitle="Elige una asignatura"
+            app:entries="@array/idiomas_disponibles"
+            app:entryValues="@array/idiomas_disponibles" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

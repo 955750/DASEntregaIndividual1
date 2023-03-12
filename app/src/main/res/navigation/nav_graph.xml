@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_menuPrincipalFragment_to_clasificacionFragment"
             app:destination="@id/clasificacionFragment" />
+        <action
+            android:id="@+id/action_menuPrincipalFragment_to_ajustesFragment"
+            app:destination="@id/ajustesFragment" />
     </fragment>
     <fragment
         android:id="@+id/detallePartidoFragment"
@@ -64,4 +67,9 @@
             android:id="@+id/action_crearCuentaFragment_to_menuPrincipalFragment"
             app:destination="@id/menuPrincipalFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ajustesFragment"
+        android:name="com.example.dasentregaindividual1.AjustesFragment"
+        android:label="fragment_ajustes"
+        tools:layout="@layout/fragment_ajustes" />
 </navigation>
