@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:background="@drawable/fondo_apk_euroliga"
-    tools:context=".AjustesFragment">
+    tools:context=".ajustes.AjustesFragment">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/preferencias"
-        android:name="com.example.dasentregaindividual1.preferencias.PreferenciasFragment"
+        android:name="com.example.dasentregaindividual1.ajustes.PreferenciasFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

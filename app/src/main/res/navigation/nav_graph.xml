@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/ajustesFragment"
-        android:name="com.example.dasentregaindividual1.AjustesFragment"
+        android:name="com.example.dasentregaindividual1.ajustes.AjustesFragment"
         android:label="fragment_ajustes"
         tools:layout="@layout/fragment_ajustes" />
 </navigation>

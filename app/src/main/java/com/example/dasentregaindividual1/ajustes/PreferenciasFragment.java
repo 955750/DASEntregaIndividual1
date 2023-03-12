@@ -1,4 +1,4 @@
-package com.example.dasentregaindividual1.preferencias;
+package com.example.dasentregaindividual1.ajustes;
 
 import android.os.Bundle;
 
