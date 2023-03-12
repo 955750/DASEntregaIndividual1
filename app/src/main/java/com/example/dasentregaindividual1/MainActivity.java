@@ -1,32 +1,68 @@
 package com.example.dasentregaindividual1;
 
+import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.preference.PreferenceManager;
 
 import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
 import com.example.dasentregaindividual1.lista_partidos.ListaPartidosFragment;
 import com.example.dasentregaindividual1.data.base_de_datos.modelos.Partido;
+import com.example.dasentregaindividual1.login.LoginFragmentDirections;
+import com.example.dasentregaindividual1.menu_principal.SalirDialogFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements ListaPartidosFragment.ListenerDelFragment {
+        implements SalirDialogFragment.ListenerSalirDialogFragment {
 
-    private Partido[] partidosJornada;
+    private SQLiteDatabase baseDeDatos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* Más adelante se hará carga de base de datos */
-        BaseDeDatos gestorDB = new BaseDeDatos(this, "NombreBD", null, 1);
-        SQLiteDatabase bd = gestorDB.getReadableDatabase();
+        // Recuperar instancia de la base de datos
+        BaseDeDatos gestorBD = new BaseDeDatos (this, "Euroliga",
+                null, 1);
+        baseDeDatos = gestorBD.getWritableDatabase();
     }
 
     @Override
-    public Partido[] cargarPartidosJornada() {
-        return partidosJornada;
+    public void alPulsarPositivo() {
+        cerrarSesion();
+        finish();
+    }
+
+    @Override
+    public void alPulsarNeutral() {
+        cerrarSesion();
+        NavDirections accion = com.example.dasentregaindividual1.login.LoginFragmentDirections
+            .actionLoginFragmentToMenuPrincipalFragment();
+        // Navigation.findNavController(view).navigate(accion);
+    }
+
+    @Override
+    public void alPulsarNegativo() {
+        // Nothing TO-DO
+    }
+
+    private void cerrarSesion() {
+        /*
+        UPDATE Usuario SET sesion_iniciada = 0
+        WHERE nombre_usuario = ?
+        */
+        SharedPreferences preferencias = PreferenceManager.getDefaultSharedPreferences(this);
+        String usuario = preferencias.getString("Usuario", null);
+        ContentValues iniciarSesion = new ContentValues();
+        iniciarSesion.put("sesion_iniciada", 0);
+        String[] argumentos = new String[] {usuario};
+        baseDeDatos.update("Usuario", iniciarSesion,
+                "nombre_usuario = ?", argumentos);
     }
 
     /*@Override

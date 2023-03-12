@@ -79,9 +79,9 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         // FALTA AÑADIR PRIMARY / FOREIGN KEY + "ON UPDATE, ON DELETE" (en algunos, revisar todos)
         sqLiteDatabase.execSQL(
             "CREATE TABLE IF NOT EXISTS Usuario (" +
-                " 'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                " 'nombre_usuario' TEXT NOT NULL, " +
-                " 'contraseña' TEXT NOT NULL" +
+                " 'nombre_usuario' TEXT PRIMARY KEY NOT NULL, " +
+                " 'contraseña' TEXT NOT NULL, " +
+                " 'sesion_iniciada' INTEGER NOT NULL" +
             ")"
         );
 
@@ -142,22 +142,15 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         Log.d("BaseDeDatos", "añadirUsuarios");
         sqLiteDatabase.execSQL(
             "INSERT INTO Usuario (" +
-                "'nombre_usuario', 'contraseña'" +
+                "'nombre_usuario', 'contraseña', 'sesion_iniciada'" +
             ")" +
-            "VALUES ('julen_fuentes', 'patata123')"
+            "VALUES ('julen_fuentes', 'patata123', '0')"
         );
         sqLiteDatabase.execSQL(
             "INSERT INTO Usuario (" +
-                "'nombre_usuario', 'contraseña'" +
+                "'nombre_usuario', 'contraseña', 'sesion_iniciada'" +
             ")" +
-            "VALUES ('iker_sobron', 'patata456')"
-        );
-    }
-
-    private void getEquiposOrdenadosPorDerrotasAsc(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.rawQuery(
-        "SELECT * FROM Equipo " +
-            "ORDER BY part_perdidos_tot ASC", null
+            "VALUES ('iker_sobron', 'patata456', '0')"
         );
     }
 

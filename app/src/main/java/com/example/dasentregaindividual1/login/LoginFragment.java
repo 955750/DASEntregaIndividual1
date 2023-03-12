@@ -1,5 +1,7 @@
 package com.example.dasentregaindividual1.login;
 
+import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.preference.PreferenceManager;
 
 import com.example.dasentregaindividual1.R;
 import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
@@ -41,7 +44,7 @@ public class LoginFragment extends Fragment {
         // Recuperar instancia de la base de datos
         BaseDeDatos gestorBD = new BaseDeDatos (requireContext(), "Euroliga", 
                 null, 1);
-        baseDeDatos = gestorBD.getReadableDatabase();
+        baseDeDatos = gestorBD.getWritableDatabase();
     }
 
     @Override
@@ -87,7 +90,7 @@ public class LoginFragment extends Fragment {
     
     private void hacerLogin(View view) {
         if (camposValidos()) {
-            // FALTARÍA ACTUALIZAR PREFERENCIAS
+            iniciarSesion(usuarioTV.getText().toString(), contraseñaTV.getText().toString());
             navegarHaciaMenuPrincipal(view);
         }
     }
@@ -145,14 +148,34 @@ public class LoginFragment extends Fragment {
         return cantidadUsuarios == 1;
     }
 
+    private void iniciarSesion(String pUsuario, String pContraseña) {
+        /*
+        UPDATE Usuario SET sesion_iniciada = 1
+        WHERE nombre_usuario = ? AND
+        contraseña = ?
+        */
+        ContentValues iniciarSesion = new ContentValues();
+        iniciarSesion.put("sesion_iniciada", 1);
+        String[] argumentos = new String[] {pUsuario, pContraseña};
+        baseDeDatos.update("Usuario", iniciarSesion,
+                "nombre_usuario = ? AND contraseña = ?", argumentos);
+
+        SharedPreferences preferencias = PreferenceManager
+            .getDefaultSharedPreferences(requireContext());
+        SharedPreferences.Editor editor = preferencias.edit();
+        editor.putString("Usuario", pUsuario);
+        editor.apply();
+    }
+
     private void navegarHaciaMenuPrincipal(View view) {
         NavDirections accion = LoginFragmentDirections
-                .actionLoginFragmentToMenuPrincipalFragment();
+            .actionLoginFragmentToMenuPrincipalFragment();
         Navigation.findNavController(view).navigate(accion);
     }
+
     private void navegarHaciaCrearCuenta(View view) {
         NavDirections accion = LoginFragmentDirections
-                .actionLoginFragmentToCrearCuentaFragment();
+            .actionLoginFragmentToCrearCuentaFragment();
         Navigation.findNavController(view).navigate(accion);
     }
 }

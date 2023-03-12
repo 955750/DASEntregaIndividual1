@@ -24,23 +24,6 @@ public class ListaPartidosFragment extends Fragment {
 
     private RecyclerView jornadasRecyclerView;
 
-    private ListenerDelFragment elListener;
-    public interface ListenerDelFragment {
-        Partido[] cargarPartidosJornada();
-        // void seleccionarElemento(int pos, View v);
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            elListener = (ListenerDelFragment) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException("La clase " + context
-                    + "debe implementar ListenerDelFragment");
-        }
-    }
-
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater,

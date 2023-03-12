@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listaPartidosFragment"
         android:name="com.example.dasentregaindividual1.lista_partidos.ListaPartidosFragment"
-        android:label="fragment_lista_partidos"
+        android:label="@string/jornadas"
         tools:layout="@layout/fragment_lista_partidos" >
         <action
             android:id="@+id/action_listaPartidosFragment_to_detallePartidoFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/menuPrincipalFragment"
         android:name="com.example.dasentregaindividual1.menu_principal.MenuPrincipalFragment"
-        android:label="fragment_menu_principal"
+        android:label="@string/menu_principal"
         tools:layout="@layout/fragment_menu_principal" >
         <action
             android:id="@+id/action_menuPrincipalFragment_to_listaPartidosFragment"
@@ -28,11 +28,14 @@
         <action
             android:id="@+id/action_menuPrincipalFragment_to_ajustesFragment"
             app:destination="@id/ajustesFragment" />
+        <action
+            android:id="@+id/action_menuPrincipalFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/detallePartidoFragment"
         android:name="com.example.dasentregaindividual1.detalle_partido.DetallePartidoFragment"
-        android:label="fragment_detalle_partido"
+        android:label="@string/partido"
         tools:layout="@layout/fragment_detalle_partido" >
         <argument
             android:name="idEquipoLocal"
@@ -44,7 +47,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.dasentregaindividual1.login.LoginFragment"
-        android:label="fragment_login"
+        android:label="@string/iniciar_sesion"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_menuPrincipalFragment"
@@ -56,12 +59,12 @@
     <fragment
         android:id="@+id/clasificacionFragment"
         android:name="com.example.dasentregaindividual1.clasificacion.ClasificacionFragment"
-        android:label="fragment_clasificacion"
+        android:label="@string/clasificacion"
         tools:layout="@layout/fragment_clasificacion" />
     <fragment
         android:id="@+id/crearCuentaFragment"
         android:name="com.example.dasentregaindividual1.crear_cuenta.CrearCuentaFragment"
-        android:label="fragment_crear_cuenta"
+        android:label="@string/crear_cuenta"
         tools:layout="@layout/fragment_crear_cuenta" >
         <action
             android:id="@+id/action_crearCuentaFragment_to_menuPrincipalFragment"
@@ -70,6 +73,6 @@
     <fragment
         android:id="@+id/ajustesFragment"
         android:name="com.example.dasentregaindividual1.ajustes.AjustesFragment"
-        android:label="fragment_ajustes"
+        android:label="@string/ajustes"
         tools:layout="@layout/fragment_ajustes" />
 </navigation>

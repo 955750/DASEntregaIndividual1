@@ -39,10 +39,10 @@
             android:text="@string/ajustes" />
 
         <Button
-            android:id="@+id/cerrar_sesion"
+            android:id="@+id/salir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cerrar_sesion" />
+            android:text="@string/salir" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
