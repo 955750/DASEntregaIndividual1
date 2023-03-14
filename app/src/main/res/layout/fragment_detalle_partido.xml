@@ -269,6 +269,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/boton_resumen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver resumen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/marcador_por_cuartos"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -276,6 +285,6 @@
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/marcador_por_cuartos" />
+        app:layout_constraintTop_toBottomOf="@id/boton_resumen" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

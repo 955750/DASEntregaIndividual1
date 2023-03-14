@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,13 +18,14 @@ import com.example.dasentregaindividual1.lista_partidos.ListaPartidosFragment;
 
 public class DetallePartidoFragment extends Fragment {
 
+    /* Atributos de la interfaz gráfica */
     private TextView puntosEquipoLocalTV;
     private ImageView escudoEquipoLocalIV;
-
     private TextView puntosEquipoVisitanteTV;
     private ImageView escudoEquipoVisitanteIV;
+    private Button botonVerResumen;
 
-
+    /* Otros atributos */
     private int puntosEquipoLocal, escudoIdEquipoLocal;
     private int puntosEquipoVisitante, escudoIdEquipoVisitante;
 
@@ -40,9 +42,9 @@ public class DetallePartidoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState
+        @NonNull LayoutInflater inflater,
+        @Nullable ViewGroup container,
+        @Nullable Bundle savedInstanceState
     ) {
         Log.d("DetallePartidoFragment", "onCreateView");
         return inflater.inflate(R.layout.fragment_detalle_partido, container, false);
@@ -64,5 +66,13 @@ public class DetallePartidoFragment extends Fragment {
         puntosEquipoVisitanteTV.setText(String.valueOf(puntosEquipoVisitante));
         escudoEquipoVisitanteIV = view.findViewById(R.id.escudo_equipo_visitante);
         escudoEquipoVisitanteIV.setImageResource(escudoIdEquipoVisitante);
+
+        botonVerResumen = view.findViewById(R.id.boton_resumen);
+        botonVerResumen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // INTENT IMPLÍCITO PARA ABRIR YT
+            }
+        });
     }
 }

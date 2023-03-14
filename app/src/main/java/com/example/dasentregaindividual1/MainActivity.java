@@ -6,8 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
 import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
@@ -20,6 +24,8 @@ public class MainActivity extends AppCompatActivity
         implements SalirDialogFragment.ListenerSalirDialogFragment {
 
     private SQLiteDatabase baseDeDatos;
+    private AppBarConfiguration appBarConfiguration;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,24 @@ public class MainActivity extends AppCompatActivity
         BaseDeDatos gestorBD = new BaseDeDatos (this, "Euroliga",
                 null, 1);
         baseDeDatos = gestorBD.getWritableDatabase();
+
+        // Para que el nombre de la barra cambie en función del fragmento en el que estamos
+
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment);
+        if (navHostFragment != null) {
+            NavController navController = navHostFragment.getNavController();
+            appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+            NavigationUI.setupActionBarWithNavController(this, navController,
+                appBarConfiguration);
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 
     @Override
