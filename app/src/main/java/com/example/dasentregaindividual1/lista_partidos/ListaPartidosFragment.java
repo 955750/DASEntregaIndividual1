@@ -59,15 +59,15 @@ public class ListaPartidosFragment extends Fragment {
             /*
             SELECT j.puntos, j.partido_id, j.local, e.nombre, e.escudo_id, e.part_ganados_ult_10, e.part_perdidos_ult_10
             FROM Juega AS j INNER JOIN Equipo AS e ON j.nombre_equipo = e.nombre
-            WHERE j.partido_id = 2
+            WHERE j.partido_id = ?
             */
 
             // Extraer datos equipos partidos
             String[] campos = new String[] {"j.puntos", "j.partido_id", "j.local", "e.nombre",
                     "e.escudo_id", "e.part_ganados_ult_10", "e.part_perdidos_ult_10"};
             String[] argumentos = new String[] {partidoId.toString()};
-            String table = "Juega AS j INNER JOIN Equipo AS e ON j.nombre_equipo = e.nombre";
-            Cursor cEquipoPartido = bd.query(table, campos, "partido_id = ?",
+            String tabla = "Juega AS j INNER JOIN Equipo AS e ON j.nombre_equipo = e.nombre";
+            Cursor cEquipoPartido = bd.query(tabla, campos, "j.partido_id = ?",
                     argumentos, null, null, null);
 
             EquipoPartido[] equiposPartido = new EquipoPartido[2];

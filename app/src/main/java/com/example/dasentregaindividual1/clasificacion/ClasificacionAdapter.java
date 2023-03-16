@@ -1,10 +1,12 @@
 package com.example.dasentregaindividual1.clasificacion;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,8 +17,11 @@ import com.example.dasentregaindividual1.data.base_de_datos.modelos.EquipoClasif
 public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionViewHolder> {
 
     private EquipoClasificacion[] clasificacion;
+    private boolean[] seleccionados;
+
     public ClasificacionAdapter(EquipoClasificacion[] pClasificacion) {
         clasificacion = pClasificacion;
+        seleccionados = new boolean[pClasificacion.length];
     }
 
     @NonNull
@@ -27,6 +32,7 @@ public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionView
             .inflate(R.layout.clasificacion_item, parent, false);
         ClasificacionViewHolder clasificacionViewHolder = new ClasificacionViewHolder(
             clasificacionItem);
+        clasificacionViewHolder.seleccion = seleccionados;
         return clasificacionViewHolder;
     }
 
@@ -56,6 +62,11 @@ public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionView
         } else {
             holder.cardClasificacion.setStrokeColor(context.getColor(R.color.naranja_vivo));
             holder.cardClasificacion.setCardBackgroundColor(context.getColor(R.color.naranja_oscuro));
+        }
+        if (equipoActual.getEsFavorito()) {
+            holder.añadirEliminarFavoritosIV.setImageResource(R.drawable.ic_favorito_true_32dp);
+        } else {
+            holder.añadirEliminarFavoritosIV.setImageResource(R.drawable.ic_favorito_false_32dp);
         }
     }
 

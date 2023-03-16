@@ -5,13 +5,14 @@ public class EquipoClasificacion {
     private int posicion, escudoId, partidosGanadosTotales, partidosPerdidosTotales,
         puntosFavorTotales, puntosContraTotales, partidosGanadosUltimos10,
         partidosPerdidosUltimos10;
+    private boolean esFavorito;
     private String nombre;
 
 
     public EquipoClasificacion(
         int pPosicion, int pEscudo, String pNombre, int pPartidosGanadosTotales,
         int pPartidosPerdidosTotales, int pPuntosFavorTotales, int pPuntosContraTotales,
-        int pPartidosGanadosUltimos10, int pPartidosPerdidosUltimos10
+        int pPartidosGanadosUltimos10, int pPartidosPerdidosUltimos10, boolean pEsFavorito
     ) {
         this.posicion = pPosicion;
         this.escudoId = pEscudo;
@@ -22,6 +23,7 @@ public class EquipoClasificacion {
         this.puntosContraTotales = pPuntosContraTotales;
         this.partidosGanadosUltimos10 = pPartidosGanadosUltimos10;
         this.partidosPerdidosUltimos10 = pPartidosPerdidosUltimos10;
+        this.esFavorito = pEsFavorito;
     }
 
     public int getPosicion() {
@@ -58,5 +60,9 @@ public class EquipoClasificacion {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public boolean getEsFavorito() {
+        return esFavorito;
     }
 }
