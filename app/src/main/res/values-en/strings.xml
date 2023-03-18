@@ -36,4 +36,8 @@
     <string name="menu_principal">Main menu</string>
     <string name="partido">Match</string>
     <string name="recomendar_aplicacion">Recommend application</string>
+    <string name="recomendacion_apk_asunto">Recommendation of the application</string>
+    <string name="recomendar_apk_via">Recommend application via ...</string>
+    <string name="toast_añadir_favorito">You\'ve added \'%s\' to favourites list</string>
+    <string name="toast_eliminar_favorito">You\'ve removed \'%s\' from favourites list</string>
 </resources>

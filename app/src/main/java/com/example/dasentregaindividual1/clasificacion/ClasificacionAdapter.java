@@ -1,12 +1,9 @@
 package com.example.dasentregaindividual1.clasificacion;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +16,10 @@ public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionView
     private EquipoClasificacion[] clasificacion;
     private boolean[] seleccionados;
 
+    /*
+     * A la hora de inicializar la variable 'seleccionados' se realiza un bucle para que los
+     * equipos que son favoritos aparezcan con una estrella con relleno
+     */
     public ClasificacionAdapter(EquipoClasificacion[] pClasificacion) {
         clasificacion = pClasificacion;
         seleccionados = new boolean[pClasificacion.length];
@@ -42,6 +43,8 @@ public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionView
     @Override
     public void onBindViewHolder(@NonNull ClasificacionViewHolder holder, int position) {
         Context context = holder.itemView.getContext();
+
+        /* Cargar datos del equipo correspondiente */
         EquipoClasificacion equipoActual = clasificacion[position];
         holder.posicionClasifacionTV.setText(String.valueOf(equipoActual.getPosicion()));
         holder.escudoTV.setImageResource(equipoActual.getEscudoId());
@@ -58,14 +61,17 @@ public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionView
                 equipoActual.getPartidosPerdidosUltimos10()
             );
         holder.rachaUltimos10TV.setText(rachaUltimosPartidos);
-        if (equipoActual.getPosicion() > 8) {
+
+        /* Cambiar colores de los MaterialCard en función de la posición */
+        if (equipoActual.getPosicion() > 8) { // Quedan eliminados
             holder.cardClasificacion.setStrokeColor(context.getColor(R.color.naranja_menos_vivo));
             holder.cardClasificacion.setCardBackgroundColor(context.getColor(R.color.naranja_claro));
-        } else {
+        } else { // Pasan a los playoffs
             holder.cardClasificacion.setStrokeColor(context.getColor(R.color.naranja_vivo));
             holder.cardClasificacion.setCardBackgroundColor(context.getColor(R.color.naranja_oscuro));
         }
-        // if (equipoActual.getEsFavorito()) {
+
+        /* Cambiar apariencia de la estrella en función de es un equipo favorito o no */
         if (seleccionados[position]) {
             holder.añadirEliminarFavoritosIV.setImageResource(R.drawable.ic_favorito_true_32dp);
         } else {

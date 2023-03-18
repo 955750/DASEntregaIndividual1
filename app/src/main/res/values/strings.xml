@@ -42,6 +42,10 @@
     <string name="menu_principal">Menú principal</string>
     <string name="partido">Partido</string>
     <string name="recomendar_aplicacion">Recomendar Aplicación</string>
+    <string name="recomendacion_apk_asunto">Recomendación de aplicación</string>
+    <string name="recomendar_apk_via">Recomendar aplicación via ...</string>
+    <string name="toast_añadir_favorito">Has añadido \'%s\' a favoritos</string>
+    <string name="toast_eliminar_favorito">Has eliminado \'%s\' de favoritos</string>
 
     <string-array name="idiomas_disponibles">
         <item>Euskara</item>

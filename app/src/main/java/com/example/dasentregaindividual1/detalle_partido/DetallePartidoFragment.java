@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.dasentregaindividual1.R;
-import com.example.dasentregaindividual1.lista_partidos.ListaPartidosFragment;
 
 public class DetallePartidoFragment extends Fragment {
 

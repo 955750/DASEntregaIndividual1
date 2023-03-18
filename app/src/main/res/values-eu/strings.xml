@@ -36,4 +36,8 @@
     <string name="menu_principal">Menu nagusia</string>
     <string name="partido">Norgehiagoka</string>
     <string name="recomendar_aplicacion">Aplikazioa gomendatu</string>
+    <string name="recomendacion_apk_asunto">Aplikazioaren gomendioa</string>
+    <string name="recomendar_apk_via">Aplikazioa gomendatu honen bidez ...</string>
+    <string name="toast_añadir_favorito">\'%s\' gehitu duzu gustukoen zerrendara</string>
+    <string name="toast_eliminar_favorito">\'%s\' kendu duzu gustukoen zerrendatik</string>
 </resources>

@@ -1,10 +1,8 @@
 package com.example.dasentregaindividual1.ajustes;
 
-import android.app.UiModeManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -27,19 +25,25 @@ public class PreferenciasFragment extends PreferenceFragmentCompat
     @Override
     public void onResume() {
         super.onResume();
-        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+        SharedPreferences preferencias = getPreferenceManager().getSharedPreferences();
+        if (preferencias != null)
+            preferencias.registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+
+        SharedPreferences preferencias = getPreferenceManager().getSharedPreferences();
+        if (preferencias != null)
+            preferencias.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         SharedPreferences preferencias = PreferenceManager
-                .getDefaultSharedPreferences(requireContext());
+            .getDefaultSharedPreferences(requireContext());
         switch (s) {
             case "idioma":
                 String idioma = preferencias.getString("idioma", null);
@@ -56,8 +60,7 @@ public class PreferenciasFragment extends PreferenceFragmentCompat
                 }
                 break;
             case "modo_oscuro":
-                // ACTIVAR / DESACTIVAR A MODO OSCURO
-                Boolean modoOscuro = preferencias.getBoolean("modo_oscuro", false);
+                boolean modoOscuro = preferencias.getBoolean("modo_oscuro", false);
                 cambiarModo(modoOscuro);
                 break;
             default:
@@ -74,19 +77,19 @@ public class PreferenciasFragment extends PreferenceFragmentCompat
     }
 
     private void cambiarIdioma(String pIdioma) {
-        // Forzar la localización
+        /* Forzar la localización */
         Locale nuevaloc = new Locale(pIdioma);
         Locale.setDefault(nuevaloc);
         Configuration configuration = requireContext().getResources().getConfiguration();
         configuration.setLocale(nuevaloc);
         configuration.setLayoutDirection(nuevaloc);
 
-        // Actualizar configuración de los recursos (res)
+        /* Actualizar configuración de los recursos (res) */
         Context context = requireContext().createConfigurationContext(configuration);
         requireContext().getResources().updateConfiguration(
                 configuration, context.getResources().getDisplayMetrics());
 
-        // Finalizar y reiniciar actividad (para que se aplique la nueva configuración)
+        /* Finalizar y reiniciar actividad (para que se aplique la nueva configuración) */
         requireActivity().finish();
         requireActivity().startActivity(requireActivity().getIntent());
     }

@@ -6,9 +6,16 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
@@ -16,12 +23,6 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.dasentregaindividual1.R;
 import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
@@ -46,14 +47,16 @@ public class MenuPrincipalFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("MenuPrincipalFragment", "onCreate");
 
-        // Recuperar instancia de la base de datos
+        /* Recuperar instancia de la base de datos */
         BaseDeDatos gestorBD = new BaseDeDatos (requireContext(), "Euroliga",
-                null, 1);
+            null, 1);
         baseDeDatos = gestorBD.getWritableDatabase();
 
-        // Listener para actuar en función de la respuesta en el diálogo
+        /*
+        * Listener para actuar de una forma determinada en función del número enviado por el
+        * diálogo 'SalirDialogFragment'.
+        */
         getParentFragmentManager().setFragmentResultListener(
             "opcionSalir", this, new FragmentResultListener() {
             @Override
@@ -84,13 +87,17 @@ public class MenuPrincipalFragment extends Fragment {
         ViewGroup container,
         Bundle savedInstanceState
     ) {
-        Log.d("MenuPrincipalFragment", "onCreateView");
+        /* Para que la flecha del 'app bar' desaparezca (produce un efecto no deseado) */
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null) {
+           actionBar.setDisplayHomeAsUpEnabled(false);
+        }
+
         return inflater.inflate(R.layout.fragment_menu_principal, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.d("MenuPrincipalFragment", "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
 
         botonJornadas = view.findViewById(R.id.boton_jornadas);
@@ -121,9 +128,7 @@ public class MenuPrincipalFragment extends Fragment {
         botonSalir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // DIALOGO CERRAR SESIÓN
-                DialogFragment dialogoSalir = new SalirDialogFragment();
-                dialogoSalir.show(getParentFragmentManager(), "dialogo_salir");
+                mostrarDialogoSalir();
             }
         });
 
@@ -134,6 +139,14 @@ public class MenuPrincipalFragment extends Fragment {
                 recomendarAplicacion();
             }
         });
+
+        agregarFuncionABotonAtras();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        baseDeDatos.close();
     }
 
     private void cerrarSesion() {
@@ -143,12 +156,12 @@ public class MenuPrincipalFragment extends Fragment {
         */
         SharedPreferences preferencias = PreferenceManager
             .getDefaultSharedPreferences(requireContext());
-        String usuario = preferencias.getString("Usuario", null);
+        String usuario = preferencias.getString("usuario", null);
         ContentValues iniciarSesion = new ContentValues();
         iniciarSesion.put("sesion_iniciada", 0);
         String[] argumentos = new String[] {usuario};
         baseDeDatos.update("Usuario", iniciarSesion,
-                "nombre_usuario = ?", argumentos);
+            "nombre_usuario = ?", argumentos);
     }
 
     private void navegarHaciaLogin() {
@@ -175,48 +188,87 @@ public class MenuPrincipalFragment extends Fragment {
         Navigation.findNavController(view).navigate(accion);
     }
 
+    private void mostrarDialogoSalir() {
+        DialogFragment dialogoSalir = new SalirDialogFragment();
+        dialogoSalir.show(getParentFragmentManager(), "dialogo_salir");
+    }
+
     private void recomendarAplicacion() {
-        String textoRecomendacion = extraerTextoRecomendacion();
+        String textoRecomendacion = extraerTextoRecomendacionDeFichero();
         crearIntentEmail(textoRecomendacion);
     }
 
-    private String extraerTextoRecomendacion() {
-        // DE MOMENTO SÓLO EN CASTELLANO!!!!
+    private String extraerTextoRecomendacionDeFichero() {
+        String plantillaMensaje = leerPlantillaDelMensaje();
+        return personalizarMensaje(plantillaMensaje);
+    }
 
-        // Leer plantilla del mensaje de recomendación
-        InputStream fich = getResources().openRawResource(R.raw.recomendar_apk_es);
+    /*
+    * Mediante esta función se lee el mensaje de recomendación de la aplicación desde un fichero
+    * interno. Es necesario tener en cuenta que se escoge la plantilla en función del idioma
+    * seleccionado en las preferencias de la aplicación
+    */
+    private String leerPlantillaDelMensaje() {
+        SharedPreferences preferencias = PreferenceManager
+            .getDefaultSharedPreferences(requireContext());
+        String idioma = preferencias.getString("idioma", null);
+        InputStream fich = null;
+        switch (idioma) {
+            case "Euskara":
+                fich = getResources().openRawResource(R.raw.recomendar_apk_eu);
+                break;
+            case "Castellano":
+                fich = getResources().openRawResource(R.raw.recomendar_apk_es);
+                break;
+            case "English":
+                fich = getResources().openRawResource(R.raw.recomendar_apk_en);
+                break;
+        }
         BufferedReader buff = new BufferedReader(new InputStreamReader(fich));
-        StringBuilder mensajeRecomendarApk = new StringBuilder();
+        StringBuilder plantillaMensaje = new StringBuilder();
         try {
             String linea = buff.readLine();
             while (linea != null) {
-                mensajeRecomendarApk.append(linea);
+                if (linea.equals(""))
+                    plantillaMensaje.append("\n\n");
+                else
+                    plantillaMensaje.append(linea);
                 linea = buff.readLine();
             }
             fich.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return plantillaMensaje.toString();
+    }
 
-        // Añadir el nombre de usuario al mensaje
+    /*
+     * Mediante esta función, en primera instancia se accede al nombre de usuario que ha iniciado
+     * sesión mediante las prefererencias y a continuación se introduce dentro del mensaje
+     * sustituyendo '%s' con este.
+     */
+    private String personalizarMensaje(String plantillaMensaje) {
         SharedPreferences preferencias = PreferenceManager
             .getDefaultSharedPreferences(requireContext());
-        String usuario = preferencias.getString("Usuario", null);
-        mensajeRecomendarApk = new StringBuilder(
-            String.format(mensajeRecomendarApk.toString(), usuario)
-        );
-        Log.d("MenuPrincipalFragment", mensajeRecomendarApk.toString());
-        System.out.println(mensajeRecomendarApk);
-        String prueba = "a \n b";
-        System.out.println(prueba);
-        return mensajeRecomendarApk.toString();
+        String usuario = preferencias.getString("usuario", null);
+        return String.format(plantillaMensaje, usuario);
     }
 
     private void crearIntentEmail(String textoMensaje) {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Recomendación de aplicación");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.recomendacion_apk_asunto));
         emailIntent.putExtra(Intent.EXTRA_TEXT, textoMensaje);
-        startActivity(Intent.createChooser(emailIntent, "Recomendar aplicación via ..."));
+        startActivity(Intent.createChooser(emailIntent, getString(R.string.recomendar_apk_via)));
+    }
+
+    private void agregarFuncionABotonAtras() {
+        requireActivity().getOnBackPressedDispatcher()
+            .addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    mostrarDialogoSalir();
+                }
+            });
     }
 }

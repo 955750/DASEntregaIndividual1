@@ -19,6 +19,7 @@ import com.google.android.material.card.MaterialCardView;
 
 public class ClasificacionViewHolder extends RecyclerView.ViewHolder {
 
+    /* Atributos de la interfaz gráfica */
     public TextView posicionClasifacionTV;
     public ImageView escudoTV;
     public TextView nombreEquipoTV;
@@ -29,11 +30,15 @@ public class ClasificacionViewHolder extends RecyclerView.ViewHolder {
     public TextView rachaUltimos10TV;
     public MaterialCardView cardClasificacion;
     public ImageView añadirEliminarFavoritosIV;
+
+    /* Otros atributos */
     public boolean[] seleccion;
+    
 
     public ClasificacionViewHolder(@NonNull View itemView) {
         super(itemView);
 
+        /* Instanciar elementos visuales del equipo */
         posicionClasifacionTV = itemView.findViewById(R.id.posicion_clasificacion);
         escudoTV = itemView.findViewById(R.id.escudo_clasificacion);
         nombreEquipoTV = itemView.findViewById(R.id.nombre_equipo_clasificacion);
@@ -47,50 +52,73 @@ public class ClasificacionViewHolder extends RecyclerView.ViewHolder {
         añadirEliminarFavoritosIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = itemView.getContext();
-                if (!seleccion[getAdapterPosition()]) {
-                    añadirEquipoFavorito(context);
-                    añadirEliminarFavoritosIV.setImageResource(R.drawable.ic_favorito_true_32dp);
-                } else {
-                    eliminarEquipoFavorito(context);
-                    añadirEliminarFavoritosIV.setImageResource(R.drawable.ic_favorito_false_32dp);
-                }
-                seleccion[getAdapterPosition()] = !seleccion[getAdapterPosition()];
+                añadirEliminarEquipoFavorito();
             }
         });
     }
+    
+    private void añadirEliminarEquipoFavorito() {
+        Context context = itemView.getContext();
+        if (!seleccion[getAdapterPosition()]) {
+            añadirEquipoFavoritoABaseDeDatos(context);
+            añadirEliminarFavoritosIV.setImageResource(R.drawable.ic_favorito_true_32dp);
+        } else {
+            eliminarEquipoFavoritoDeBaseDeDatos(context);
+            añadirEliminarFavoritosIV.setImageResource(R.drawable.ic_favorito_false_32dp);
+        }
+        seleccion[getAdapterPosition()] = !seleccion[getAdapterPosition()];
+    }
 
-    private void añadirEquipoFavorito(Context context) {
-        // Recuperar instancia de la base de datos
+    private void añadirEquipoFavoritoABaseDeDatos(Context context) {
+        /* Recuperar instancia de la base de datos */
         BaseDeDatos gestorBD = new BaseDeDatos (context, "Euroliga",
-                null, 1);
+            null, 1);
         SQLiteDatabase baseDeDatos = gestorBD.getWritableDatabase();
 
-        // Añadir equipo a favoritos
+        /*
+        INSERT INTO Favorito (nombre_usuario, nombre_equipo)
+        VALUES (?, ?)
+        */
         ContentValues nuevoEqFavorito = new ContentValues();
         SharedPreferences preferencias = PreferenceManager.getDefaultSharedPreferences(context);
-        String usuario = preferencias.getString("Usuario", null);
+        String usuario = preferencias.getString("usuario", null);
+        String nombreEquipo = nombreEquipoTV.getText().toString();
         nuevoEqFavorito.put("nombre_usuario", usuario);
-        nuevoEqFavorito.put("nombre_equipo", nombreEquipoTV.getText().toString());
+        nuevoEqFavorito.put("nombre_equipo", nombreEquipo);
         baseDeDatos.insert("Favorito", null, nuevoEqFavorito);
-        Toast.makeText(context, "AÑADIR FAV.", Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(
+            context,
+            context.getString(R.string.toast_añadir_favorito, nombreEquipo),
+            Toast.LENGTH_SHORT
+        ).show();
 
         gestorBD.close();
     }
 
-    private void eliminarEquipoFavorito(Context context) {
-        // Recuperar instancia de la base de datos
+    private void eliminarEquipoFavoritoDeBaseDeDatos(Context context) {
+        /* Recuperar instancia de la base de datos */
         BaseDeDatos gestorBD = new BaseDeDatos (context, "Euroliga",
                 null, 1);
         SQLiteDatabase baseDeDatos = gestorBD.getWritableDatabase();
-        Toast.makeText(context, "ELIMINAR FAV.", Toast.LENGTH_SHORT).show();
 
-        // Eliminar equipo de los favoritos
+        /*
+        DELETE FROM Favorito
+        WHERE nombre_usuario = ?
+        AND nombre_equipo = ?
+        */
         SharedPreferences preferencias = PreferenceManager.getDefaultSharedPreferences(context);
-        String usuario = preferencias.getString("Usuario", null);
-        String[] argumentos = {usuario, nombreEquipoTV.getText().toString()};
+        String usuario = preferencias.getString("usuario", null);
+        String nombreEquipo = nombreEquipoTV.getText().toString();
+        String[] argumentos = {usuario, nombreEquipo};
         baseDeDatos.delete("Favorito", "nombre_usuario = ? AND nombre_equipo = ?",
             argumentos);
+
+        Toast.makeText(
+            context,
+            context.getString(R.string.toast_eliminar_favorito, nombreEquipo),
+            Toast.LENGTH_SHORT
+        ).show();
 
         gestorBD.close();
     }

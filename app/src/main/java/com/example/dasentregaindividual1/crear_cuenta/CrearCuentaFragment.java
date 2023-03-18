@@ -4,19 +4,18 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import com.example.dasentregaindividual1.R;
 import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
@@ -38,11 +37,10 @@ public class CrearCuentaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("CrearCuentaFragment", "onCreate");
 
-        // Recuperar instancia de la base de datos
+        /* Recuperar instancia de la base de datos */
         BaseDeDatos gestorBD = new BaseDeDatos(requireContext(), "Euroliga",
-                null, 1);
+            null, 1);
         baseDeDatos = gestorBD.getWritableDatabase();
     }
 
@@ -52,14 +50,12 @@ public class CrearCuentaFragment extends Fragment {
         ViewGroup container,
         Bundle savedInstanceState
     ) {
-        Log.d("CrearCuentaFragment", "onCreateView");
         return inflater.inflate(R.layout.fragment_crear_cuenta, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("CrearCuentaFragment", "onViewCreated");
 
         usuarioTV = view.findViewById(R.id.campo_usuario_crear_cuenta);
         contraseñaTV = view.findViewById(R.id.campo_contraseña_crear_cuenta);
@@ -76,7 +72,6 @@ public class CrearCuentaFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("CrearCuentaFragment", "onDestroy");
         baseDeDatos.close();
     }
 
@@ -87,6 +82,12 @@ public class CrearCuentaFragment extends Fragment {
         }
     }
 
+    /*
+     * En esta función, primero se validan los campos y una vez que cumplen con el formato correcto
+     * se comprueba si el usuario existe (no puede haber más de un usuario con el mismo nombre de
+     * usuario) y que las contraseñas coinciden. Finalmente, si se cumplen todos los requisitos se
+     * procede a la creación de la cuenta
+     */
     private boolean camposValidos() {
         if (usuarioTV.getText().toString().equals("")) {
             Toast.makeText(
@@ -138,6 +139,10 @@ public class CrearCuentaFragment extends Fragment {
         }
     }
 
+    /*
+     * En esta función, si hay algún usuario que cumpla las características de la consulta
+     * (cantidadUsuarios = 1) significará que nombre de usuario no es válido.
+     */
     private boolean usuarioValido(String pUsuario) {
         /*
         SELECT COUNT(*) FROM Usuario
@@ -146,7 +151,7 @@ public class CrearCuentaFragment extends Fragment {
         String[] campos = new String[] {"COUNT(*)"};
         String[] argumentos = new String[] {pUsuario};
         Cursor cUsuario = baseDeDatos.query("Usuario", campos, "nombre_usuario = ?",
-                argumentos, null, null, null);
+            argumentos, null, null, null);
 
         cUsuario.moveToFirst();
         int cantidadUsuarios = cUsuario.getInt(0);
@@ -154,6 +159,10 @@ public class CrearCuentaFragment extends Fragment {
         return cantidadUsuarios != 1;
     }
 
+    /* Para la validación de la contraseña se ha utlizado de base el código que podemos encontrar
+     * la en la siguiente página:
+     * https://www.geeksforgeeks.org/how-to-validate-a-password-using-regular-expressions-in-java/
+     */
     private boolean contraseñaCumpleFormato() {
         /*
             ^ represents starting character of the string.
@@ -165,7 +174,6 @@ public class CrearCuentaFragment extends Fragment {
             .{8, 20} represents at least 8 characters and at most 20 characters.
             $ represents the end of the string.
          */
-
 
         String contraseña = contraseñaTV.getText().toString();
         String regex = "^(?=.*[0-9])" +
@@ -195,7 +203,7 @@ public class CrearCuentaFragment extends Fragment {
 
     private void crearCuenta() {
         BaseDeDatos gestorBD = new BaseDeDatos(requireContext(), "Euroliga",
-                null, 1);
+            null, 1);
         SQLiteDatabase bd = gestorBD.getWritableDatabase();
         ContentValues nuevoUsuario = new ContentValues();
         nuevoUsuario.put("nombre_usuario", usuarioTV.getText().toString());
@@ -206,7 +214,7 @@ public class CrearCuentaFragment extends Fragment {
 
     private void navegarHaciaMenuPrincipal(View view) {
         NavDirections accion = CrearCuentaFragmentDirections
-                .actionCrearCuentaFragmentToMenuPrincipalFragment();
+            .actionCrearCuentaFragmentToMenuPrincipalFragment();
         Navigation.findNavController(view).navigate(accion);
     }
 }
