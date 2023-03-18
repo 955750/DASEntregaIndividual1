@@ -25,7 +25,7 @@
     <string name="toast_usuario_contraseña_correctos">Erabiltzaile izen edo/eta pasahitza ZUZENAK</string>
     <string name="ajustes">Ezarpenak</string>
     <string name="salir">Irten</string>
-    <string name="activar_modo_oscuro">Modo iluna aktibatu</string>
+    <string name="activar_modo_oscuro">Modu iluna aktibatu</string>
     <string name="cambiar_idioma_titulo">Hizkuntza aldatu</string>
     <string name="cambiar_idioma_descripcion">Ezarri nahi duzun hizkuntza hautatu</string>
     <string name="dialogo_salir_titulo">Aplikaziotik irtetzen ...</string>
