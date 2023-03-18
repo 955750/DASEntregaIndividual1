@@ -71,8 +71,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(
             "CREATE TABLE IF NOT EXISTS Usuario (" +
                 " 'nombre_usuario' TEXT PRIMARY KEY NOT NULL, " +
-                " 'contraseña' TEXT NOT NULL, " +
-                " 'sesion_iniciada' INTEGER NOT NULL" +
+                " 'contraseña' TEXT NOT NULL" +
             ")"
         );
 
@@ -141,15 +140,15 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         Log.d("BaseDeDatos", "añadirUsuarios");
         sqLiteDatabase.execSQL(
             "INSERT INTO Usuario (" +
-                "'nombre_usuario', 'contraseña', 'sesion_iniciada'" +
+                "'nombre_usuario', 'contraseña'" +
             ")" +
-            "VALUES ('julen_fuentes', 'patata123', '0')"
+            "VALUES ('julen_fuentes', 'patata123')"
         );
         sqLiteDatabase.execSQL(
             "INSERT INTO Usuario (" +
-                "'nombre_usuario', 'contraseña', 'sesion_iniciada'" +
+                "'nombre_usuario', 'contraseña'" +
             ")" +
-            "VALUES ('iker_sobron', 'patata456', '0')"
+            "VALUES ('iker_sobron', 'patata456')"
         );
     }
 

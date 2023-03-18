@@ -18,6 +18,7 @@ import androidx.core.os.LocaleListCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
 
 import com.example.dasentregaindividual1.R;
@@ -66,7 +67,7 @@ public class LoginFragment extends Fragment {
         botonIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hacerLogin(view);
+                hacerLogin();
             }
         });
 
@@ -80,15 +81,27 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        SharedPreferences preferencias = PreferenceManager
+            .getDefaultSharedPreferences(requireContext());
+        String usuario = preferencias.getString("usuario", null);
+        if (usuario != null) {
+            navegarHaciaMenuPrincipal();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         baseDeDatos.close();
     }
     
-    private void hacerLogin(View view) {
+    private void hacerLogin() {
         if (camposValidos()) {
-            iniciarSesion(usuarioTV.getText().toString(), contraseñaTV.getText().toString());
-            navegarHaciaMenuPrincipal(view);
+            iniciarSesion(usuarioTV.getText().toString());
+            navegarHaciaMenuPrincipal();
         }
     }
 
@@ -153,22 +166,7 @@ public class LoginFragment extends Fragment {
         return cantidadUsuarios == 1;
     }
 
-    private void iniciarSesion(String pUsuario, String pContraseña) {
-        /*
-        UPDATE Usuario SET sesion_iniciada = 1
-        WHERE nombre_usuario = ? AND
-        contraseña = ?
-        */
-        ContentValues iniciarSesion = new ContentValues();
-        iniciarSesion.put("sesion_iniciada", 1);
-        String[] argumentos = new String[] {pUsuario, pContraseña};
-        baseDeDatos.update("Usuario", iniciarSesion,
-            "nombre_usuario = ? AND contraseña = ?", argumentos);
-
-        inicializarPreferencias(pUsuario);
-    }
-
-    private void inicializarPreferencias(String pUsuario) {
+    private void iniciarSesion(String pUsuario) {
         SharedPreferences preferencias = PreferenceManager
             .getDefaultSharedPreferences(requireContext());
         SharedPreferences.Editor editor = preferencias.edit();
@@ -176,10 +174,10 @@ public class LoginFragment extends Fragment {
         editor.apply();
     }
 
-    private void navegarHaciaMenuPrincipal(View view) {
+    private void navegarHaciaMenuPrincipal() {
         NavDirections accion = LoginFragmentDirections
             .actionLoginFragmentToMenuPrincipalFragment();
-        Navigation.findNavController(view).navigate(accion);
+        NavHostFragment.findNavController(this).navigate(accion);
     }
 
     private void navegarHaciaCrearCuenta(View view) {

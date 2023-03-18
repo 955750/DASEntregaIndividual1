@@ -176,18 +176,11 @@ public class MenuPrincipalFragment extends Fragment {
     }
 
     private void cerrarSesion() {
-        /*
-        UPDATE Usuario SET sesion_iniciada = 0
-        WHERE nombre_usuario = ?
-        */
         SharedPreferences preferencias = PreferenceManager
             .getDefaultSharedPreferences(requireContext());
-        String usuario = preferencias.getString("usuario", null);
-        ContentValues iniciarSesion = new ContentValues();
-        iniciarSesion.put("sesion_iniciada", 0);
-        String[] argumentos = new String[] {usuario};
-        baseDeDatos.update("Usuario", iniciarSesion,
-            "nombre_usuario = ?", argumentos);
+        SharedPreferences.Editor editor = preferencias.edit();
+        editor.putString("usuario", null);
+        editor.apply();
     }
 
     private void crearNotificacionPartido() {
@@ -208,6 +201,7 @@ public class MenuPrincipalFragment extends Fragment {
             String equipo = cEquipoFavorito.getString(0);
             listaEquiposFavoritos.add(equipo);
         }
+        cEquipoFavorito.close();
         listenerMenuPrincipalFragment.crearNotificacionesPartido(listaEquiposFavoritos);
     }
 
