@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity
         NotificationCompat.Builder builderNotificaciones = new NotificationCompat
             .Builder(this, "APK Euroliga");
 
-
         Bundle bundle = new Bundle();
         bundle.putInt("cantidadFavoritos", cantidadEquiposFavoritos);
         PendingIntent pendingIntent = new NavDeepLinkBuilder(getBaseContext())
@@ -123,16 +122,16 @@ public class MainActivity extends AppCompatActivity
             .setDestination(R.id.listaPartidosFragment)
             .setArguments(bundle)
             .createPendingIntent();
-        // .setContentText("El siguiente del Baskonia es a las 20:30")
+
         builderNotificaciones.setSmallIcon(R.drawable.logo_notificaciones_euroliga)
-            .setContentTitle("Último partido")
-            .setContentText(equipoFavorito)
+            .setContentTitle(getString(R.string.notificacion_titulo))
+            .setContentText(getString(R.string.notificacion_texto, equipoFavorito))
             .setAutoCancel(true)
             .setContentIntent(pendingIntent);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel canalNotificaciones = new NotificationChannel(
-                "APK Euroliga", "APK Euroliga", NotificationManager.IMPORTANCE_DEFAULT
+                "APK Euroliga", getString(R.string.notificacion_grande_titulo), NotificationManager.IMPORTANCE_DEFAULT
             );
             managerNotificaciones.createNotificationChannel(canalNotificaciones);
 
@@ -141,7 +140,6 @@ public class MainActivity extends AppCompatActivity
             canalNotificaciones.setLightColor(Color.RED);
 
             managerNotificaciones.notify(idNotificacion, builderNotificaciones.build());
-            // managerNotificaciones.cancel(1);
         }
     }
 

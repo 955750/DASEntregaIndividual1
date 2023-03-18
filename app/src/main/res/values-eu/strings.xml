@@ -40,4 +40,7 @@
     <string name="recomendar_apk_via">Aplikazioa gomendatu honen bidez ...</string>
     <string name="toast_añadir_favorito">\'%s\' gehitu duzu gustukoen zerrendara</string>
     <string name="toast_eliminar_favorito">\'%s\' kendu duzu gustukoen zerrendatik</string>
+    <string name="notificacion_titulo">Jardunaldi honetako informazioa</string>
+    <string name="notificacion_texto">Zeren zain zaude \'%s\' taldearen aurkaria nor den ikusteko?</string>
+    <string name="notificacion_grande_titulo">Euroliga APK</string>
 </resources>

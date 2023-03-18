@@ -40,4 +40,7 @@
     <string name="recomendar_apk_via">Recommend application via ...</string>
     <string name="toast_añadir_favorito">You\'ve added \'%s\' to favourites list</string>
     <string name="toast_eliminar_favorito">You\'ve removed \'%s\' from favourites list</string>
+    <string name="notificacion_titulo">Current game information</string>
+    <string name="notificacion_texto">What are you waiting for to discover the next rival of \'%s\'?</string>
+    <string name="notificacion_grande_titulo">Euroleague APK</string>
 </resources>

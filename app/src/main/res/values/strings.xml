@@ -46,6 +46,9 @@
     <string name="recomendar_apk_via">Recomendar aplicación via ...</string>
     <string name="toast_añadir_favorito">Has añadido \'%s\' a favoritos</string>
     <string name="toast_eliminar_favorito">Has eliminado \'%s\' de favoritos</string>
+    <string name="notificacion_titulo">Información de la jornada actual</string>
+    <string name="notificacion_texto">\"¿A qué esperas para ver quién es el rival del \'%s\'?</string>
+    <string name="notificacion_grande_titulo">APK Euroliga</string>
 
     <string-array name="idiomas_disponibles">
         <item>Euskara</item>
