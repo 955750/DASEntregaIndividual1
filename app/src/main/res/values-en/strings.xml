@@ -35,4 +35,5 @@
     <string name="cerrar_sesion_mensaje">Sign out</string>
     <string name="menu_principal">Main menu</string>
     <string name="partido">Match</string>
+    <string name="recomendar_aplicacion">Recommend application</string>
 </resources>

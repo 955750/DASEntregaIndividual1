@@ -1,8 +1,10 @@
 package com.example.dasentregaindividual1.menu_principal;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,11 @@ import android.widget.Button;
 import com.example.dasentregaindividual1.R;
 import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public class MenuPrincipalFragment extends Fragment {
 
     /* Atributos de la interfaz gráfica */
@@ -31,6 +38,7 @@ public class MenuPrincipalFragment extends Fragment {
     private Button botonClasificacion;
     private Button botonAjustes;
     private Button botonSalir;
+    private Button botonRecomendarApk;
 
     /* Otros atributos */
     private SQLiteDatabase baseDeDatos;
@@ -118,6 +126,14 @@ public class MenuPrincipalFragment extends Fragment {
                 dialogoSalir.show(getParentFragmentManager(), "dialogo_salir");
             }
         });
+
+        botonRecomendarApk = view.findViewById(R.id.boton_recomendar);
+        botonRecomendarApk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recomendarAplicacion();
+            }
+        });
     }
 
     private void cerrarSesion() {
@@ -157,5 +173,50 @@ public class MenuPrincipalFragment extends Fragment {
         NavDirections accion = MenuPrincipalFragmentDirections
             .actionMenuPrincipalFragmentToAjustesFragment();
         Navigation.findNavController(view).navigate(accion);
+    }
+
+    private void recomendarAplicacion() {
+        String textoRecomendacion = extraerTextoRecomendacion();
+        crearIntentEmail(textoRecomendacion);
+    }
+
+    private String extraerTextoRecomendacion() {
+        // DE MOMENTO SÓLO EN CASTELLANO!!!!
+
+        // Leer plantilla del mensaje de recomendación
+        InputStream fich = getResources().openRawResource(R.raw.recomendar_apk_es);
+        BufferedReader buff = new BufferedReader(new InputStreamReader(fich));
+        StringBuilder mensajeRecomendarApk = new StringBuilder();
+        try {
+            String linea = buff.readLine();
+            while (linea != null) {
+                mensajeRecomendarApk.append(linea);
+                linea = buff.readLine();
+            }
+            fich.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Añadir el nombre de usuario al mensaje
+        SharedPreferences preferencias = PreferenceManager
+            .getDefaultSharedPreferences(requireContext());
+        String usuario = preferencias.getString("Usuario", null);
+        mensajeRecomendarApk = new StringBuilder(
+            String.format(mensajeRecomendarApk.toString(), usuario)
+        );
+        Log.d("MenuPrincipalFragment", mensajeRecomendarApk.toString());
+        System.out.println(mensajeRecomendarApk);
+        String prueba = "a \n b";
+        System.out.println(prueba);
+        return mensajeRecomendarApk.toString();
+    }
+
+    private void crearIntentEmail(String textoMensaje) {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Recomendación de aplicación");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, textoMensaje);
+        startActivity(Intent.createChooser(emailIntent, "Recomendar aplicación via ..."));
     }
 }

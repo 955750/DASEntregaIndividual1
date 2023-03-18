@@ -41,6 +41,7 @@
     <string name="cerrar_sesion_mensaje">Cerrar sesión</string>
     <string name="menu_principal">Menú principal</string>
     <string name="partido">Partido</string>
+    <string name="recomendar_aplicacion">Recomendar Aplicación</string>
 
     <string-array name="idiomas_disponibles">
         <item>Euskara</item>

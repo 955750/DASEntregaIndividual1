@@ -22,6 +22,9 @@ public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionView
     public ClasificacionAdapter(EquipoClasificacion[] pClasificacion) {
         clasificacion = pClasificacion;
         seleccionados = new boolean[pClasificacion.length];
+        for (int i = 0; i < pClasificacion.length; i++) {
+            seleccionados[i] = pClasificacion[i].getEsFavorito();
+        }
     }
 
     @NonNull
@@ -56,14 +59,14 @@ public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionView
             );
         holder.rachaUltimos10TV.setText(rachaUltimosPartidos);
         if (equipoActual.getPosicion() > 8) {
-            Log.d("ClasificacionAdapter", String.valueOf(equipoActual.getPosicion()));
             holder.cardClasificacion.setStrokeColor(context.getColor(R.color.naranja_menos_vivo));
             holder.cardClasificacion.setCardBackgroundColor(context.getColor(R.color.naranja_claro));
         } else {
             holder.cardClasificacion.setStrokeColor(context.getColor(R.color.naranja_vivo));
             holder.cardClasificacion.setCardBackgroundColor(context.getColor(R.color.naranja_oscuro));
         }
-        if (equipoActual.getEsFavorito()) {
+        // if (equipoActual.getEsFavorito()) {
+        if (seleccionados[position]) {
             holder.añadirEliminarFavoritosIV.setImageResource(R.drawable.ic_favorito_true_32dp);
         } else {
             holder.añadirEliminarFavoritosIV.setImageResource(R.drawable.ic_favorito_false_32dp);
