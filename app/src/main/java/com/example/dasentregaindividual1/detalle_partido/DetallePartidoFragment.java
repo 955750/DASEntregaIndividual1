@@ -31,6 +31,7 @@ public class DetallePartidoFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         /* RECUPERAR DATOS DEL PARTIDO SELECCIONADO */
         if (getArguments() != null) {
             puntosEquipoLocal = getArguments().getInt("idEquipoLocal");

@@ -1,8 +1,10 @@
 package com.example.dasentregaindividual1.menu_principal;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class MenuPrincipalFragment extends Fragment {
 
@@ -43,6 +46,16 @@ public class MenuPrincipalFragment extends Fragment {
 
     /* Otros atributos */
     private SQLiteDatabase baseDeDatos;
+    private ListenerMenuPrincipalFragment listenerMenuPrincipalFragment;
+
+
+    /*
+     * Interfaz para que 'MainActivity' implemente la notificación del partido y que aparezca al
+     * acceder a este fragmento.
+     */
+    public interface ListenerMenuPrincipalFragment {
+        void crearNotificacionesPartido(ArrayList<String> listaEquiposFavoritos);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,13 +92,15 @@ public class MenuPrincipalFragment extends Fragment {
                 }
             }
         });
+
+        crearNotificacionPartido();
     }
 
     @Override
     public View onCreateView(
-        LayoutInflater inflater,
-        ViewGroup container,
-        Bundle savedInstanceState
+        @NonNull LayoutInflater inflater,
+        @Nullable ViewGroup container,
+        @Nullable Bundle savedInstanceState
     ) {
         /* Para que la flecha del 'app bar' desaparezca (produce un efecto no deseado) */
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
@@ -144,6 +159,17 @@ public class MenuPrincipalFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            listenerMenuPrincipalFragment = (ListenerMenuPrincipalFragment) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("La clase " + context
+                + "debe implementar ListenerMenuPrincipalFragment");
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         baseDeDatos.close();
@@ -162,6 +188,27 @@ public class MenuPrincipalFragment extends Fragment {
         String[] argumentos = new String[] {usuario};
         baseDeDatos.update("Usuario", iniciarSesion,
             "nombre_usuario = ?", argumentos);
+    }
+
+    private void crearNotificacionPartido() {
+        /*
+        SELECT nombre_equipo FROM Favorito
+        WHERE nombre_usuario = ?
+        */
+        SharedPreferences preferencias = PreferenceManager
+            .getDefaultSharedPreferences(requireContext());
+        String usuario = preferencias.getString("usuario", null);
+        String[] campos = new String[] {"nombre_equipo"};
+        String[] argumentos = new String[] {usuario};
+        Cursor cEquipoFavorito = baseDeDatos.query("Favorito", campos,
+            "nombre_usuario = ?", argumentos, null, null, null);
+
+        ArrayList<String> listaEquiposFavoritos = new ArrayList<>();
+        while (cEquipoFavorito.moveToNext()) {
+            String equipo = cEquipoFavorito.getString(0);
+            listaEquiposFavoritos.add(equipo);
+        }
+        listenerMenuPrincipalFragment.crearNotificacionesPartido(listaEquiposFavoritos);
     }
 
     private void navegarHaciaLogin() {

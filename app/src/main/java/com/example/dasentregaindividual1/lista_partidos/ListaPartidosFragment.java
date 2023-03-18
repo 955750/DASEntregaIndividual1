@@ -1,8 +1,10 @@
 package com.example.dasentregaindividual1.lista_partidos;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,9 @@ import com.example.dasentregaindividual1.R;
 import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
 import com.example.dasentregaindividual1.data.base_de_datos.modelos.EquipoPartido;
 import com.example.dasentregaindividual1.data.base_de_datos.modelos.Partido;
+import com.example.dasentregaindividual1.menu_principal.MenuPrincipalFragment;
+
+import java.util.ArrayList;
 
 public class ListaPartidosFragment extends Fragment {
 
@@ -24,6 +29,16 @@ public class ListaPartidosFragment extends Fragment {
 
     /* Otros atributos */
     private SQLiteDatabase baseDeDatos;
+    private ListenerListaPartidosFragment listenerListaPartidosFragment;
+
+
+    /*
+     * Interfaz para que 'MainActivity' implemente la notificación del partido y que aparezca al
+     * acceder a este fragmento.
+     */
+    public interface ListenerListaPartidosFragment {
+        void borrarNotificaciones(int cantidadFavoritos);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +48,13 @@ public class ListaPartidosFragment extends Fragment {
         BaseDeDatos gestorBD = new BaseDeDatos (requireContext(), "Euroliga",
                 null, 1);
         baseDeDatos = gestorBD.getWritableDatabase();
+
+        /* RECUPERAR DATOS DEL PARTIDO SELECCIONADO */
+        if (getArguments() != null) {
+            int cantidadEquiposFavoritos = getArguments().getInt("cantidadFavoritos");
+            Log.d("ListaPartidosFragment", String.valueOf(cantidadEquiposFavoritos));
+            listenerListaPartidosFragment.borrarNotificaciones(cantidadEquiposFavoritos);
+        }
     }
 
     @Override
@@ -50,6 +72,17 @@ public class ListaPartidosFragment extends Fragment {
 
         jornadasRecyclerView = view.findViewById(R.id.jornadas_recycler_view);
         jornadasRecyclerView.setAdapter(new ListaPartidosAdapter(recuperarListaDePartidos()));
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            listenerListaPartidosFragment = (ListenerListaPartidosFragment) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("La clase " + context
+                + "debe implementar ListenerListaPartidosFragment");
+        }
     }
 
     @Override
