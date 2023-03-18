@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -171,10 +173,6 @@ public class LoginFragment extends Fragment {
             .getDefaultSharedPreferences(requireContext());
         SharedPreferences.Editor editor = preferencias.edit();
         editor.putString("usuario", pUsuario);
-        String idiomaSeleccionado = preferencias.getString("idioma", null);
-        if (idiomaSeleccionado == null)
-            editor.putString("idioma", "Castellano");
-        // falta cambiar idioma
         editor.apply();
     }
 

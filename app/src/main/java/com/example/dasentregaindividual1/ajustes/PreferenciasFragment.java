@@ -70,11 +70,10 @@ public class PreferenciasFragment extends PreferenceFragmentCompat
     }
 
     private void cambiarModo(boolean pModoOscuro) {
-        if (pModoOscuro) {
+        if (pModoOscuro)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
+        else
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
     }
 
     /*
