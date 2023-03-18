@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
@@ -76,21 +77,14 @@ public class PreferenciasFragment extends PreferenceFragmentCompat
         }
     }
 
+    /*
+     * Función para cambiar el idioma. Al tener sólo una actividad, si esta mata y se vuelve a
+     * crear se vuelve a la pantalla del login, por lo que se ha buscado una alternativa para el
+     * cambio de idioma basándose en el siguente enlace:
+     * https://developer.android.com/about/versions/13/features/app-languages?hl=es-419
+     */
     private void cambiarIdioma(String pIdioma) {
-        /* Forzar la localización */
-        Locale nuevaloc = new Locale(pIdioma);
-        Locale.setDefault(nuevaloc);
-        Configuration configuration = requireContext().getResources().getConfiguration();
-        configuration.setLocale(nuevaloc);
-        configuration.setLayoutDirection(nuevaloc);
-
-        /* Actualizar configuración de los recursos (res) */
-        Context context = requireContext().createConfigurationContext(configuration);
-        requireContext().getResources().updateConfiguration(
-                configuration, context.getResources().getDisplayMetrics());
-
-        /* Finalizar y reiniciar actividad (para que se aplique la nueva configuración) */
-        requireActivity().finish();
-        requireActivity().startActivity(requireActivity().getIntent());
+        LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(pIdioma);
+        AppCompatDelegate.setApplicationLocales(appLocale);
     }
 }
