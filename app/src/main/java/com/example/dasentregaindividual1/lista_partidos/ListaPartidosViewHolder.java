@@ -5,8 +5,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dasentregaindividual1.R;
@@ -51,34 +49,5 @@ public class ListaPartidosViewHolder extends RecyclerView.ViewHolder {
         fechaPartidoTV = itemView.findViewById(R.id.fecha_partido);
         horaPartidoTV = itemView.findViewById(R.id.hora_partido);
         cardPartido = itemView.findViewById(R.id.card_partido);
-
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navegarHaciaDetallePartidoTrasClick(view);
-            }
-        });
-    }
-
-    /*
-     * Al hacer click en un partido de la lista, navegamos a otro fragmento en el que se nos dan
-     * detalles adicionales sobre el partido.
-     */
-    private void navegarHaciaDetallePartidoTrasClick(View view) {
-        if (!seleccion[getAdapterPosition()]) {
-            int puntosLocal = Integer.parseInt(puntosEquipoLocalTV.getText().toString());
-            int puntosVisitante = Integer.parseInt(puntosEquipoVisitanteTV.getText()
-                .toString());
-            NavDirections accion = ListaPartidosFragmentDirections
-                .actionListaPartidosFragmentToDetallePartidoFragment(
-                    puntosLocal,
-                    puntosVisitante
-                );
-            Navigation.findNavController(view).navigate(accion);
-        }
-        else {
-            // Nothing TO-DO
-        }
-        seleccion[getAdapterPosition()] = !seleccion[getAdapterPosition()];
     }
 }

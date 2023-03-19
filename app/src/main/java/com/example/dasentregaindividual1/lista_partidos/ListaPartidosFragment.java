@@ -18,9 +18,6 @@ import com.example.dasentregaindividual1.R;
 import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
 import com.example.dasentregaindividual1.data.base_de_datos.modelos.EquipoPartido;
 import com.example.dasentregaindividual1.data.base_de_datos.modelos.Partido;
-import com.example.dasentregaindividual1.menu_principal.MenuPrincipalFragment;
-
-import java.util.ArrayList;
 
 public class ListaPartidosFragment extends Fragment {
 

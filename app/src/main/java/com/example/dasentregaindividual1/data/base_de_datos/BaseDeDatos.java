@@ -31,27 +31,6 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         añadirEquipos(sqLiteDatabase);
         añadirJugadores(sqLiteDatabase);
         añadirPartidos(sqLiteDatabase);
-        /*
-
-        sqLiteDatabase.execSQL(
-            "CREATE TABLE Estadisticas (" +
-                " 'numero_jugador' INTEGER PRIMARY KEY NOT NULL, " +
-                " 'equipo_id' INTEGER PRIMARY KEY NOT NULL, " +
-                " 'partido_id' INTEGER PRIMARY KEY NOT NULL, " +
-                " 'puntos' INTEGER NOT NULL, " +
-                " 'asistencias' INTEGER NOT NULL, " +
-                " 'rebotes' INTEGER NOT NULL" +
-            ")"
-        );
-
-        sqLiteDatabase.execSQL(
-            "CREATE TABLE Juega (" +
-                " 'numero_jugador' INTEGER NOT NULL, " +
-                " 'equipo_id' INTEGER NOT NULL, " +
-                " 'puntos_favor' INTEGER NOT NULL, " +
-                " 'puntos_contra' INTEGER NOT NULL" +
-            ")"
-        );*/
     }
 
     @Override
@@ -61,13 +40,11 @@ public class BaseDeDatos extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Jugador");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Partido");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Favorito");
-        /*sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Estadisticas");*/
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Juega");
         onCreate(sqLiteDatabase);
     }
 
     private void crearTablas(SQLiteDatabase sqLiteDatabase) {
-        // FALTA AÑADIR PRIMARY / FOREIGN KEY + "ON UPDATE, ON DELETE" (en algunos, revisar todos)
         sqLiteDatabase.execSQL(
             "CREATE TABLE IF NOT EXISTS Usuario (" +
                 " 'nombre_usuario' TEXT PRIMARY KEY NOT NULL, " +
@@ -441,12 +418,6 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                                74, 72, 78, 77,
                                70, 88, 81, 84,
                                79, 66};
-        String[] nombresEquipos = {"Alba Berlin", "Anadolu Efes", "AS Monaco", "Baskonia",
-                "Bayern Munich", "Crvena Zvezda", "Emporio Armani Milan", "FC Barcelona",
-                "Fenerbahce", "LDLC Asvel Villeurbane", "Maccabi Tel Aviv", "Olympiacos",
-                "Panathinaikos", "Partizan Belgrade", "Real Madrid", "Valencia Basket",
-                "Virtus Bologna", "Zalgiris Kaunas"
-        };
         int[] partidosIdJ27 = {2, 8, 9, 5,
                                6, 8, 4, 1,
                                7, 6, 7, 1,
