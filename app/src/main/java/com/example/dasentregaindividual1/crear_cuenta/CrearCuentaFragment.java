@@ -1,6 +1,7 @@
 package com.example.dasentregaindividual1.crear_cuenta;
 
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.preference.PreferenceManager;
 
 import com.example.dasentregaindividual1.R;
 import com.example.dasentregaindividual1.data.base_de_datos.BaseDeDatos;
@@ -210,6 +212,16 @@ public class CrearCuentaFragment extends Fragment {
         nuevoUsuario.put("contraseña", contraseñaTV.getText().toString());
         bd.insert("Usuario", null, nuevoUsuario);
         bd.close();
+
+        iniciarSesion(usuarioTV.getText().toString());
+    }
+
+    private void iniciarSesion(String pUsuario) {
+        SharedPreferences preferencias = PreferenceManager
+            .getDefaultSharedPreferences(requireContext());
+        SharedPreferences.Editor editor = preferencias.edit();
+        editor.putString("usuario", pUsuario);
+        editor.apply();
     }
 
     private void navegarHaciaMenuPrincipal(View view) {

@@ -1,8 +1,6 @@
 package com.example.dasentregaindividual1.ajustes;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,8 +10,6 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.example.dasentregaindividual1.R;
-
-import java.util.Locale;
 
 public class PreferenciasFragment extends PreferenceFragmentCompat
     implements SharedPreferences.OnSharedPreferenceChangeListener {

@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity
 
     private void inicializarPreferencias() {
         SharedPreferences preferencias = PreferenceManager
-                .getDefaultSharedPreferences(getBaseContext());
+            .getDefaultSharedPreferences(getBaseContext());
         SharedPreferences.Editor editor = preferencias.edit();
         String idiomaSeleccionado = preferencias.getString("idioma", null);
         if (idiomaSeleccionado == null) { // Por defecto poner castellano como idioma

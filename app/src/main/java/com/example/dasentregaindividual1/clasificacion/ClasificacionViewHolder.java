@@ -21,7 +21,7 @@ public class ClasificacionViewHolder extends RecyclerView.ViewHolder {
 
     /* Atributos de la interfaz gráfica */
     public TextView posicionClasifacionTV;
-    public ImageView escudoTV;
+    public ImageView escudoIV;
     public TextView nombreEquipoTV;
     public TextView partidosGanadosTotalesTV;
     public TextView partidosPerdidosTotalesTV;
@@ -40,7 +40,7 @@ public class ClasificacionViewHolder extends RecyclerView.ViewHolder {
 
         /* Instanciar elementos visuales del equipo */
         posicionClasifacionTV = itemView.findViewById(R.id.posicion_clasificacion);
-        escudoTV = itemView.findViewById(R.id.escudo_clasificacion);
+        escudoIV = itemView.findViewById(R.id.escudo_clasificacion);
         nombreEquipoTV = itemView.findViewById(R.id.nombre_equipo_clasificacion);
         partidosGanadosTotalesTV = itemView.findViewById(R.id.partidos_ganados_totales);
         partidosPerdidosTotalesTV = itemView.findViewById(R.id.partidos_perdidos_totales);

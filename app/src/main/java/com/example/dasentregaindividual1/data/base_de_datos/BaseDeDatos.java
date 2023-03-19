@@ -427,19 +427,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
     }
 
     private void añadirPartidos(SQLiteDatabase sqLiteDatabase) {
-        /*// fecha -> 'YYYY-MM-DD'
-        // hora -> ADBZ. '22:30+01' (+1 Zona horaria Madrid)
-        sqLiteDatabase.execSQL(
-                "CREATE TABLE Partido (" +
-                        " 'id' INTEGER NOT NULL, " +
-                        " 'numero_jornada' INTEGER NOT NULL, " +
-                        " 'fecha' TEXT NOT NULL, " +
-                        " 'hora' TEXT NOT NULL, " +
-                        " PRIMARY KEY('id', 'numero_jornada')" +
-                        ")"
-        );*/
-
-        /* AÑADIR MÁS JORNADAS MÁS ADELANTE */
+        /* AÑADIR MÁS JORNADAS EN UN FUTURO */
         int[] jornadas = {27};
 
         /* JORNADA 27 */

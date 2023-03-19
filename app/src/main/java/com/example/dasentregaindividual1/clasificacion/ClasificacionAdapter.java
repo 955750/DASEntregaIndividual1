@@ -47,7 +47,7 @@ public class ClasificacionAdapter extends RecyclerView.Adapter<ClasificacionView
         /* Cargar datos del equipo correspondiente */
         EquipoClasificacion equipoActual = clasificacion[position];
         holder.posicionClasifacionTV.setText(String.valueOf(equipoActual.getPosicion()));
-        holder.escudoTV.setImageResource(equipoActual.getEscudoId());
+        holder.escudoIV.setImageResource(equipoActual.getEscudoId());
         holder.nombreEquipoTV.setText(equipoActual.getNombre());
         holder.partidosGanadosTotalesTV.setText(String.valueOf(equipoActual
             .getPartidosGanadosTotales()));
